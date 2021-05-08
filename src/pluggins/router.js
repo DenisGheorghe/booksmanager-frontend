@@ -2,12 +2,11 @@ import vue from 'vue';
 import VueRouter from 'vue-router';
 import HomePage from '../pages/home';
 import ContactsPage from '../pages/contact';
-import { component } from 'vue/types/umd';
+//import { component } from 'vue/types/umd';
 
-const routes = [
+const routes =   [
     { path: '/home', component: HomePage },
     { path: '/contact', component: ContactsPage }
-
   ]
   
   // 3. Create the router instance and pass the `routes` option

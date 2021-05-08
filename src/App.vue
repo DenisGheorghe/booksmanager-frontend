@@ -33,7 +33,19 @@ export default {
     axios
       .get('http://localhost:4000/users')
       .then(response => (this.userData = response.data))
-  }
+  },
+  watch: {
+  $route: {
+    handler (to, from) {
+      const body = document.getElementsByTagName('body')[0];
+      if (from !== undefined) {
+        body.classList.remove('page--' + from.name.toLowerCase());
+      }
+      body.classList.add('page--' + to.name.toLowerCase());
+    },
+    immediate: true,
+   }
+  },
 }
 
 </script>
