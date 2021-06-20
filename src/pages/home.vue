@@ -1,7 +1,89 @@
 <template>
-    <div class="mod">
-        <h1>This is the homepage</h1>
-        <div v-if=showBooks>
+  <b-container>
+    <!-- page title -->
+    <b-row class="title-row">
+      <h1>This is the homepage</h1>
+    </b-row>
+
+    <!-- page-content -->
+    <b-row>
+      <b-col cols="3">
+        <SidebarHome></SidebarHome>
+      </b-col>
+      <b-col cols="9">
+        <router-view></router-view>
+      </b-col>
+    </b-row>
+  </b-container>
+</template>
+<script>
+import SidebarHome from "../components/SidebarHome.vue";
+import TableBooks from "../components/TableBooks.vue";
+export default {
+  components: { SidebarHome, TableBooks },
+  data() {
+    return {};
+  },
+  methods: {
+    toggleFav(book) {
+      book.isfav = !book.isfav;
+    },
+    handleClick() {
+      this.$refs.name.classList.add("active"), this.$refs.name.focus();
+    },
+  },
+
+  computed: {
+    filteredBooks() {
+      return this.books.filter((book) => book.isfav);
+    },
+  },
+};
+</script>
+
+
+<style scoped>
+.title-row {
+  min-height: 100px;
+}
+
+/* .bg-light {
+  background: black;
+}
+.mod {
+  background: #0000;
+}
+
+li.fav {
+  background: #499ce9;
+  color: white;
+}
+img {
+  height: 50px;
+}
+
+p,
+h3,
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style-type: none;
+  background: #fff;
+  margin: 20px auto;
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pb-2 {
+  padding: 20px;
+} */
+</style>
+
+    <!-- <div v-if=showBooks>
      
         <br>
         <ul>
@@ -14,78 +96,4 @@
      <br>
      <br>
      <input type="text" ref="name">
-     <button @click="handleClick">Click here</button>
-    </div>
- </div>
-</template>
-<script>
-
-export default {
-
-    data(){
-       
-        return{
-          
-            showBooks:true,
-            books: [
-                { title: "first book title", author: 'first author', img: '././src/assets/logo.png', isfav: true},
-                { title: "second book title", author: 'second author', img: "././src/assets/logo.png", isfav: true},
-                { title: "third book title", author: 'third author', img: '././src/assets/logo.png', isfav: false},
-            ],
-            url: 'https://www.google.com',
-            title: "Call of Cthulhu"
-
-        }
-    },
-    methods:{
-        toggleFav(book){
-            book.isfav=!book.isfav
-        },
-      handleClick(){
-          this.$refs.name.classList.add('active'),
-          this.$refs.name.focus()
-      },
-
-    },
-
-  
-    computed:{
-        filteredBooks(){
-            return this.books.filter( (book) => book.isfav)
-        }
-    }
-
-}
-</script>
-<style scoped>
-.bg-light{
-    background: black;
-}
-.mod{
-    background: #0000;
-}
-
-li.fav{
-    background: #499ce9;
-    color: white;
-}
-img{
-    height: 50px;
-}
-
-p, h3, ul{
- margin: 0;
- padding: 0;   
-}
-li{
-    list-style-type: none;
-    background: #fff;
-    margin: 20px auto;
-    padding: 10px 20px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-}
-</style>
+     <button @click="handleClick">Click here</button> -->

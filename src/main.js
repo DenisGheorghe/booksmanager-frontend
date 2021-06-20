@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
-import router from './pluggins/router'
+
+// Style imports
 import './assets/global.css'
 
-import axios from 'axios';
-
+// Plugin imports
+import router from './pluggins/router'
+import './pluggins/bootstrap'
 
 Vue.use(VueRouter)
 new Vue({
