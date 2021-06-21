@@ -3,7 +3,8 @@
   <div>
     <h2>Add a New Author</h2>
     <form v-on:submit.prevent="submitForm">
-      <div class="form-group">
+      <div class="row">
+      <div class="form-group col-md-6">
         <label for="text">ISBN</label>
         <input
           type="text"
@@ -13,7 +14,7 @@
           v-model="form._id"
         />
       </div>
-      <div class="form-group">
+      <div class="form-group col-md-6">
         <label for="text">Denumire Carte</label>
         <input
           type="text"
@@ -23,20 +24,10 @@
           v-model="form.Denumire_Carte"
         />
       </div>
-      <div>
-        <label for="text">Author</label>
-        <!-- <select v-model="form.Autor">
-                        <option v-for="autor in autori">{{autor}}</option>
-                    </select> -->
-        <select v-model="form.Autor">
-          <option v-for="autor in list" :value="autor._id" :key="autor._id">
-            {{ autor.Nume_Autor }} {{ autor.Prenume_Autor }}
-          </option>
-        </select>
-        <span>Selected: {{ selected }}</span>
       </div>
+      <div class="row">
 
-      <div class="form-group">
+          <div class="form-group col-md-6">
         <label for="text">Limba Carte</label>
         <input
           type="text"
@@ -47,7 +38,17 @@
         />
       </div>
 
-      <div class="form-group">
+
+      <div class="form-group col-md-6">
+        <label for="text">Autor</label> <br/>
+        <b-form-select v-model="form.Autor" class="mb-6">
+          <b-form-select-option v-for="autor in list" :value="autor._id" :key="autor._id">
+            {{ autor.Nume_Autor }} {{ autor.Prenume_Autor }}
+          </b-form-select-option>
+        </b-form-select>
+      </div>
+    
+      <div class="form-group col-md-6">
         <label for="text">Numar Exemplare</label>
         <input
           type="text"
@@ -58,7 +59,7 @@
         />
       </div>
 
-      <div class="form-group">
+      <div class="form-group col-md-6">
         <label for="text">Cod Editura</label>
         <input
           type="text"
@@ -67,9 +68,21 @@
           placeholder="Editura"
           v-model="form.Cod_Editura"
         />
+        
+       <div class="form-group col-md-6">
+        <label for="text">Autor</label> <br/>
+        <b-form-select v-model="form.Autor" class="mb-6">
+          <b-form-select-option v-for="autor in list" :value="autor._id" :key="autor._id">
+            {{ autor.Nume_Autor }} {{ autor.Prenume_Autor }}
+          </b-form-select-option>
+        </b-form-select>
       </div>
 
-      <div class="form-group">
+
+
+      </div>
+    </div>
+      <div class="form-group col-md-6">
         <button class="btn btn-primary">Submit</button>
       </div>
     </form>
@@ -90,7 +103,7 @@ export default {
         Cod_Editura: "",
       },
       list: [],
-      selected: "A",
+
     };
   },
   mounted() {
