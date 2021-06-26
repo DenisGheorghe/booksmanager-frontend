@@ -5,25 +5,25 @@
     <form v-on:submit.prevent="submitForm">
       <div class="row">
         <div class="form-group col-md-6">
-          <label for="Nume_Autor">Nume</label>
+          <label for="Nume_Editura">Denumire Editura</label>
           <input
             type="text"
             class="form-control"
-            id="Nume_Autor"
+            id="Nume_Editura"
             placeholder="Nume"
             ref="Nume"
-            v-model="form.Nume_Autor"
+            v-model="form.Nume_Editura"
           />
         </div>
         <div class="form-group col-md-6">
-          <label for="text">Prenume</label>
+          <label for="text">Numar Telefon</label>
           <input
             type="text"
             class="form-control"
-            id="Prenume_Autor"
+            id="Nr_Tel_Editura"
             placeholder="Prenume"
             ref="Prenume"
-            v-model="form.Prenume_Autor"
+            v-model="form.Nr_Tel_Editura"
           />
         </div>
       </div>
@@ -43,8 +43,8 @@ export default {
     return {
       form: {
         //  _id: "",
-        Nume_Autor: "",
-        Prenume_Autor: "",
+        Nume_Editura: "",
+        Nr_Tel_Editura: "",
       },
     };
   },
@@ -54,8 +54,8 @@ export default {
     restetInput() {
       this.addAuthor(this.form);
 
-      this.form.Nume_Autor = "";
-      this.form.Prenume_Autor = "";
+      this.form.Nume_Editura = "";
+      this.form.Nr_Tel_Editura = "";
     },
   },
 };

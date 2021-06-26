@@ -1,4 +1,4 @@
-import vue from 'vue';
+import Vue from 'vue';
 import VueRouter from 'vue-router';
 import HomePage from '../pages/home';
 import ContactsPage from '../pages/contact';
@@ -9,7 +9,7 @@ import TableCourses from '../components/TableCourses';
 //import { component } from 'vue/types/umd';
 import CreateAuthor from '../components/CreateAuthor';
 import CreateBook from '../components/CreateBook';
-
+Vue.use(VueRouter)
 const routes = [
   {
     path: '/home', component: HomePage, children: [

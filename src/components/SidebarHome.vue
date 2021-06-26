@@ -24,7 +24,7 @@
           >Lista Autori</router-link
         >
         <b-badge variant="badge bg-primary rounded-pill" pill>
-          {{ countAutori() }}
+          {{ authorsCount }}
         </b-badge>
       </b-list-group-item>
       <b-list-group-item
@@ -46,15 +46,21 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       Autori: [],
       Carti: [],
       Edituri: [],
+      authorsCount: 0,
     };
   },
+  computed: {
+    ...mapGetters("authorCount", ["getAuthorCount", "authorLoadingState"]),
+  },
   mounted() {
+    this.authorsCount = this.$store.getters.getAuthorCount;
     axios
       .get("http://localhost:4000/api/autori/get")
       .then((resp) => {
