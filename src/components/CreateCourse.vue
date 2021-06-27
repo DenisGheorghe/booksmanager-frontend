@@ -1,30 +1,32 @@
 
 <template>
   <div>
-    <h2>Add a New Author</h2>
+    <h2>Add a New Course</h2>
     <form v-on:submit.prevent="submitForm">
       <div class="row">
         <div class="form-group col-md-6">
-          <label for="Nume_Autor">Nume</label>
+          <label for="Denumire">Nume</label>
           <input
             type="text"
             class="form-control"
-            id="Nume_Autor"
+            id="Denumire"
             placeholder="Nume"
-            ref="Nume"
-            v-model="form.Nume_Autor"
+            v-model="form.Denumire"
           />
         </div>
         <div class="form-group col-md-6">
-          <label for="text">Prenume</label>
+          <label for="Limba">Limba Cursului</label>
           <input
             type="text"
             class="form-control"
-            id="Prenume_Autor"
-            placeholder="Prenume"
-            ref="Prenume"
-            v-model="form.Prenume_Autor"
+            id="Limba"
+            placeholder="Limba Cursului"
+            v-model="form.Limba"
           />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="text">Tipul Cursului</label> <br />
+          <b-form-select v-model="form.Tip" :options="options"></b-form-select>
         </div>
       </div>
       <div class="form-group">
@@ -42,19 +44,25 @@ export default {
     return {
       form: {
         //  _id: "",
-        Nume_Autor: "",
-        Prenume_Autor: "",
+        Denumire: "",
+        Limba: "",
+        Tip: "",
       },
+      options: [
+        { value: "Online", text: "Online" },
+        { value: "Fizic", text: "Fizic" },
+      ],
     };
   },
   methods: {
-    ...mapActions("authors", ["addAuthor"]),
+    ...mapActions("courses", ["addCourse"]),
     submitForm() {},
     restetInput() {
-      this.addAuthor(this.form);
+      this.addCourse(this.form);
 
-      this.form.Nume_Autor = "";
-      this.form.Prenume_Autor = "";
+      this.form.Denumire = "";
+      this.form.Limba = "";
+      this.form.Tip = "";
     },
   },
 };

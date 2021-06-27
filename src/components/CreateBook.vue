@@ -1,7 +1,6 @@
-
 <template>
   <div>
-    <h2>Add a New Author</h2>
+    <h2>Adauga un nou Autor</h2>
     <form v-on:submit.prevent="submitForm">
       <div class="row">
         <div class="form-group col-md-6">
@@ -39,8 +38,21 @@
             ref="LimbaCarte"
           />
         </div>
-
         <div class="form-group col-md-6">
+          <label for="text">Autor</label> <br />
+          <b-form-input v-model="form.Autor" list="my-list-id"></b-form-input>
+          <datalist id="my-list-id">
+            <option
+              v-for="autor in getAllAuthors"
+              :value="autor._id"
+              :key="autor._id"
+            >
+              {{ autor.Nume_Autor }} {{ autor.Prenume_Autor }}
+            </option>
+          </datalist>
+        </div>
+
+        <!-- <div class="form-group col-md-6">
           <label for="text">Autor</label> <br />
           <b-form-select v-model="form.Autor" class="mb-6">
             <b-form-select-option
@@ -52,7 +64,7 @@
               {{ autor.Nume_Autor }} {{ autor.Prenume_Autor }}
             </b-form-select-option>
           </b-form-select>
-        </div>
+        </div> -->
 
         <div class="form-group col-md-6">
           <label for="text">Numar Exemplare</label>
@@ -67,17 +79,23 @@
         </div>
 
         <div class="form-group col-md-6">
-          <label for="text">Cod Editura</label>
-          <input
-            type="text"
-            class="form-control"
-            id="Cod_Editura"
-            placeholder="Editura"
+          <label for="text">Editura</label> <br />
+          <b-form-input
             v-model="form.Cod_Editura"
-            ref="Cod_Editura"
-          />
+            list="my-list-ids"
+          ></b-form-input>
+          <datalist id="my-list-ids">
+            <option
+              v-for="publisher in getAllPublishers"
+              :value="publisher._id"
+              :key="publisher._id"
+            >
+              {{ publisher.Nume_Editura }}
+            </option>
+          </datalist>
+        </div>
 
-          <!-- <div class="form-group col-md-6">
+        <!-- <div class="form-group col-md-6">
         <label for="text">Autor</label> <br/>
         <b-form-select v-model="form.Autor" class="mb-6">
           <b-form-select-option v-for="autor in list" :value="autor._id" :key="autor._id">
@@ -85,16 +103,16 @@
           </b-form-select-option>
         </b-form-select>
       </div> -->
-        </div>
       </div>
       <div class="form-group col-md-6">
-        <button class="btn btn-primary" v-on:click="restetInput">Submit</button>
+        <button class="btn btn-primary" v-on:click="restetInput">
+          Trimite
+        </button>
       </div>
     </form>
   </div>
 </template>
 <script>
-import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "PostFormAxios",
@@ -124,19 +142,22 @@ export default {
 
   computed: {
     ...mapGetters("authors", ["getAllAuthors", "authorLoadingState"]),
+    ...mapGetters("publishers", ["getAllPublishers", "publisherLoadingState"]),
   },
   mounted() {
     this.fetchAllAuthors();
     console.log(this.getAllAuthors);
+    this.fetchAllPublishers();
+    console.log(this.getAllPublishers);
   },
   methods: {
     ...mapActions("books", ["addBook"]),
     ...mapActions("authors", ["fetchAllAuthors"]),
+    ...mapActions("publishers", ["fetchAllPublishers"]),
     submitForm() {},
     restetInput() {
       debugger;
       this.addBook(this.form);
-
       this.form._id = "";
       this.form.Denumire_carte = "";
       this.form.Autor = "";

@@ -15,6 +15,9 @@ const getters = {
     },
     bookLoadingState(state) {
         return state.isLoading;
+    },
+    getCartiCount(state) {
+        return state.cartiCount;
     }
 }
 
@@ -50,8 +53,24 @@ const actions = {
             .finally(() => {
                 Vue.set(state, 'isLoading', false);
             })
+    },
+    deleteBook({ commit }, idBook) {
+        //delete book from server
+        Vue.set(state, 'isLoading', true);
+        axios.delete('http://localhost:4000/api/carti/delete/', { _id: idBook })
+            .then(() => {
+                commit('DELETE_BOOK', idBook)
+            })
+            .catch(err => {
+                console.log('Error has occured', err);
+            })
+            .finally(() => {
+                Vue.set(state, 'isLoading', false);
+            })
     }
 }
+
+
 
 const mutations = {
     UPDATE_STATE(state, booksList) {
@@ -61,6 +80,17 @@ const mutations = {
     ADD_BOOK(state, carti) {
         Vue.set(state, 'booksList', [...state.booksList, carti]);
         Vue.set(state, 'cartiCount', state.booksList.length);
+    },
+    DELETE_BOOK(state, idBook) {
+        const index = state.booksList.findIndex((book) => book._id == idBook)
+        if (index != -1) {
+            state.booksList.splice(index, 1)
+            Vue.set(state, 'booksList', state.booksList);
+            Vue.set(state, 'cartiCount', state.booksList.length);
+        }
+        else {
+            console.log(`Cartea cu id-ul ${idBook} nu a fost gasita`)
+        }
     }
 }
 

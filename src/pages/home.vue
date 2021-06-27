@@ -2,7 +2,7 @@
   <b-container>
     <!-- page title -->
     <b-row class="title-row">
-      <h1>This is the homepage</h1>
+      <h1>Biblioteca</h1>
     </b-row>
 
     <!-- page-content -->
@@ -23,20 +23,6 @@ export default {
   components: { SidebarHome, TableBooks },
   data() {
     return {};
-  },
-  methods: {
-    toggleFav(book) {
-      book.isfav = !book.isfav;
-    },
-    handleClick() {
-      this.$refs.name.classList.add("active"), this.$refs.name.focus();
-    },
-  },
-
-  computed: {
-    filteredBooks() {
-      return this.books.filter((book) => book.isfav);
-    },
   },
 };
 </script>

@@ -1,7 +1,7 @@
 
 <template>
   <div>
-    <h2>Add a New Author</h2>
+    <h2>Adauga Editura</h2>
     <form v-on:submit.prevent="submitForm">
       <div class="row">
         <div class="form-group col-md-6">
@@ -10,7 +10,7 @@
             type="text"
             class="form-control"
             id="Nume_Editura"
-            placeholder="Nume"
+            placeholder="Denumire Editura"
             ref="Nume"
             v-model="form.Nume_Editura"
           />
@@ -21,7 +21,7 @@
             type="text"
             class="form-control"
             id="Nr_Tel_Editura"
-            placeholder="Prenume"
+            placeholder="Numar de Telefon"
             ref="Prenume"
             v-model="form.Nr_Tel_Editura"
           />
@@ -34,7 +34,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 import { mapActions } from "vuex";
 
 export default {
@@ -49,10 +48,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions("authors", ["addAuthor"]),
+    ...mapActions("publishers", ["addPublisher"]),
     submitForm() {},
     restetInput() {
-      this.addAuthor(this.form);
+      this.addPublisher(this.form);
 
       this.form.Nume_Editura = "";
       this.form.Nr_Tel_Editura = "";

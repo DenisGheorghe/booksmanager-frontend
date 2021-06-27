@@ -1,15 +1,15 @@
 <template>
-  <div v-if="!authorLoadingState">
-    <!-- <b-table striped hover :items="items"></b-table> -->
+  <div v-if="!publisherLoadingState">
     <b-col lg="4" class="pb-2"
-      ><b-button @click="toggleCreateAuthor">Add Author</b-button></b-col
+      ><b-button @click="toggleCreatePublisher">Add Publisher</b-button></b-col
     >
-    <CreateAuthor v-if="showCreateAuthor"></CreateAuthor>
+    <CreatePublisher v-if="showCreatePublisher"></CreatePublisher>
     <b-table
+      class="text-center"
       id="my-table"
       striped
       hover
-      :items="getAllAuthors"
+      :items="getAllPublishers"
       :fields="fields"
       :per-page="perPage"
       :current-page="currentPage"
@@ -22,7 +22,7 @@
     </b-table>
     <b-pagination
       v-model="currentPage"
-      :total-rows="getAllAuthors.length"
+      :total-rows="getAllPublishers.length"
       :per-page="perPage"
       first-text="First"
       prev-text="Prev"
@@ -35,15 +35,15 @@
 </template>
 
 <script>
-import CreateAuthor from "./CreateAuthor.vue";
+import CreatePublisher from "./CreatePublisher.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
     return {
       fields: [
-        "Nume_Autor",
-        "Prenume_Autor",
+        { key: "Nume_Editura", label: "Denumire Editura" },
+        { key: "Nr_Tel_Editura", label: "Numar de Telefon" },
         {
           key: "Delete",
           label: "Delete",
@@ -51,24 +51,24 @@ export default {
       ],
       perPage: 15,
       currentPage: 1,
-      showCreateAuthor: false,
+      showCreatePublisher: false,
     };
   },
   components: {
-    CreateAuthor,
+    CreatePublisher,
   },
 
   computed: {
-    ...mapGetters("authors", ["getAllAuthors", "authorLoadingState"]),
+    ...mapGetters("publishers", ["getAllPublishers", "publisherLoadingState"]),
   },
   mounted() {
-    this.fetchAllAuthors();
-    console.log(this.getAllAuthors);
+    this.fetchAllPublishers();
+    console.log(this.getAllPublishers);
   },
   methods: {
-    ...mapActions("authors", ["fetchAllAuthors"]),
-    toggleCreateAuthor() {
-      this.showCreateAuthor = !this.showCreateAuthor;
+    ...mapActions("publishers", ["fetchAllPublishers"]),
+    toggleCreatePublisher() {
+      this.showCreatePublisher = !this.showCreatePublisher;
     },
   },
 };

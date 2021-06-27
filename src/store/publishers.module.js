@@ -15,6 +15,9 @@ const getters = {
     },
     publisherLoadingState(state) {
         return state.isLoading;
+    },
+    getPublisherCount(state) {
+        return state.publisherCount;
     }
 
 }
@@ -35,10 +38,10 @@ const actions = {
                 Vue.set(state, 'isLoading', false);
             })
     },
-    addPublisher({ commit }, newAuthor) {
+    addPublisher({ commit }, newPublisher) {
         Vue.set(state, 'isLoading', true);
         axios
-            .post("http://localhost:4000/api/edituri/create", newAuthor)
+            .post("http://localhost:4000/api/edituri/create", newPublisher)
             .then(resp => {
                 const publisherToAdd = resp.data;
                 commit('ADD_PUBLISHER', publisherToAdd)
@@ -57,8 +60,15 @@ const mutations = {
         Vue.set(state, 'publisherList', publisherList);
         Vue.set(state, 'publisherCount', publisherList.length);
     },
-    ADD_AUTHOR(state, author) {
-        Vue.set(state, 'publisherList', [...state.publisherList, author]);
+    ADD_PUBLISHER(state, publisher) {
+        Vue.set(state, 'publisherList', [...state.publisherList, publisher]);
         Vue.set(state, 'publisherCount', state.publisherList.length);
     }
+}
+export default {
+    namespaced: true,
+    state,
+    getters,
+    actions,
+    mutations
 }

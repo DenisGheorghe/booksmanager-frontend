@@ -2,10 +2,11 @@
   <div>
     <!-- <b-table striped hover :items="items"></b-table> -->
     <b-col lg="4" class="pb-2"
-      ><b-button @click="toggleCreateBook">Add book</b-button></b-col
+      ><b-button @click="toggleCreateBook">Adauga Carte</b-button></b-col
     >
     <CreateBook v-if="showCreateBook"></CreateBook>
     <b-table
+      class="text-center"
       id="my-table"
       striped
       hover
@@ -14,8 +15,13 @@
       :per-page="perPage"
       :current-page="currentPage"
     >
-      <template v-slot:cell(Delete)="">
-        <b-button size="sm" @click="deleteBook" class="mr-1" variant="danger">
+      <template #cell(Delete)="data">
+        <b-button
+          size="sm"
+          v-on:click="deleteBookClicked(data.item._id)"
+          class="mr-1"
+          variant="danger"
+        >
           Delete
         </b-button>
       </template>
@@ -47,7 +53,7 @@ export default {
         { key: "Autor.Prenume_Autor", label: "Prenume Autor" },
         "Limba",
         "Stoc",
-        "Cod_Editura",
+        { key: "Cod_Editura.Nume_Editura", label: "Editura" },
         {
           key: "Delete",
           label: "Delete",
@@ -69,9 +75,12 @@ export default {
     console.log(this.getAllBooks);
   },
   methods: {
-    ...mapActions("books", ["fetchAllBooks"]),
+    ...mapActions("books", ["fetchAllBooks", "deleteBook"]),
     toggleCreateBook() {
       this.showCreateBook = !this.showCreateBook;
+    },
+    deleteBookClicked(idBook) {
+      this.deleteBook(idBook);
     },
   },
 };

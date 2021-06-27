@@ -1,13 +1,17 @@
-import Vuex from 'vuex'
-import Vue from 'vue'
+import Vuex from 'vuex';
+import Vue from 'vue';
 
 import authorsModule from './autori.module';
-import booksModule from './carti.module'
+import booksModule from './carti.module';
+import publisherModule from './publishers.module';
+import CoursesModule from './courses.module';
 Vue.use(Vuex);
 export default new Vuex.Store({
     modules: {
         authors: authorsModule,
-        books: booksModule
+        books: booksModule,
+        publishers: publisherModule,
+        courses: CoursesModule,
     }
 })
 
