@@ -40,6 +40,30 @@
           {{ getPublisherCount }}
         </b-badge>
       </b-list-group-item>
+      <b-list-group-item
+        class="d-flex justify-content-between align-items-center"
+      >
+        <router-link
+          class="nav-link"
+          exact-active-class="active"
+          :to="{ name: 'table-publishers' }"
+          >Imprumuturi</router-link
+        >
+        <b-badge variant="badge bg-primary rounded-pill" pill>
+          {{ getPublisherCount }}
+        </b-badge>
+      </b-list-group-item>
+
+      <b-list-group-item
+        class="d-flex justify-content-between align-items-center"
+      >
+        <router-link
+          class="nav-link"
+          exact-active-class="active"
+          :to="{ name: 'books-reports' }"
+          >Rapoarte</router-link
+        >
+      </b-list-group-item>
     </b-list-group>
   </div>
 </template>

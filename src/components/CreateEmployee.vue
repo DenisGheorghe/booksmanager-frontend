@@ -5,14 +5,14 @@
     <form v-on:submit.prevent="submitForm">
       <div class="row">
         <div class="form-group col-md-6">
-          <label for="Nume_Autor">Nume</label>
+          <label for="Nume">Nume</label>
           <input
             type="text"
             class="form-control"
-            id="Nume_Autor"
+            id="Nume"
             placeholder="Nume"
             ref="Nume"
-            v-model="form.Nume_Autor"
+            v-model="form.Nume"
           />
         </div>
         <div class="form-group col-md-6">
@@ -20,10 +20,33 @@
           <input
             type="text"
             class="form-control"
-            id="Prenume_Autor"
+            id="Prenume"
             placeholder="Prenume"
             ref="Prenume"
-            v-model="form.Prenume_Autor"
+            v-model="form.Prenume"
+          />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="text">Nr_Tel</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Nr_Tel"
+            placeholder="Nr_Tel"
+            ref="Nr_Tel"
+            v-model="form.Nr_Tel"
+            maxlength="10"
+          />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="text">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="Email"
+            placeholder="Email"
+            ref="Email"
+            v-model="form.Email"
           />
         </div>
       </div>
@@ -42,8 +65,10 @@ export default {
     return {
       form: {
         //  _id: "",
-        Nume_Autor: "",
-        Prenume_Autor: "",
+        Nume: "",
+        Prenume: "",
+        Nr_Tel: "",
+        Email: "",
       },
     };
   },
@@ -55,8 +80,10 @@ export default {
     restetInput() {
       this.addAuthor(this.form);
 
-      this.form.Nume_Autor = "";
-      this.form.Prenume_Autor = "";
+      this.form.Nume = "";
+      this.form.Prenume = "";
+      this.form.Nr_Tel = "";
+      this.form.Email = "";
     },
   },
 };

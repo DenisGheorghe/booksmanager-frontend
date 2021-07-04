@@ -43,7 +43,6 @@ export default {
   data() {
     return {
       form: {
-        //  _id: "",
         Denumire: "",
         Limba: "",
         Tip: "",

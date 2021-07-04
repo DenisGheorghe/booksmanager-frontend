@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h2>Total carti 📚{{ calculCarti }}</h2>
+    <h2>Total cursanti 🎓{{ getCoursantsCount }}</h2>
     <!-- <b-table striped hover :items="items"></b-table> -->
     <b-col lg="4" class="pb-2"
-      ><b-button @click="toggleCreateBook">Adauga Carte</b-button></b-col
+      ><b-button @click="toggleCreateCoursants">Adauga Cursant</b-button></b-col
     >
-    <CreateBook v-if="showCreateBook"></CreateBook>
+    <CreateCoursant v-if="showCreateCoursants"></CreateCoursant>
     <b-table
       class="text-center"
       id="my-table"
       striped
       hover
-      :items="getAllBooks"
+      :items="getAllCoursants"
       :fields="fields"
       :per-page="perPage"
       :current-page="currentPage"
@@ -19,7 +19,7 @@
       <template #cell(Delete)="data">
         <b-button
           size="sm"
-          v-on:click="deleteBookClicked(data.item._id)"
+          v-on:click="deleteCoursantClicked(data.item._id)"
           class="mr-1"
           variant="danger"
         >
@@ -29,7 +29,7 @@
     </b-table>
     <b-pagination
       v-model="currentPage"
-      :total-rows="getAllBooks.length"
+      :total-rows="getAllCoursants.length"
       :per-page="perPage"
       first-text="First"
       prev-text="Prev"
@@ -41,51 +41,59 @@
 </template>
 
 <script>
-import CreateBook from "./CreateBook.vue";
+import CreateCoursant from "./CreateCoursant.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
       fields: [
-        { key: "_id", label: "ISBN" },
-        ,
-        "Denumire_Carte",
-        { key: "Autor.Nume_Autor", label: "Nume Autor" },
-        { key: "Autor.Prenume_Autor", label: "Prenume Autor" },
-        "Limba",
-        "Stoc",
-        { key: "Cod_Editura.Nume_Editura", label: "Editura" },
+        "Nume",
+        "Prenume",
+        "CNP",
+        { key: "Nr_Tel", label: "Numar Telefon" },
+
+        { key: "Cod_Curs.Denumire", label: "Curs" },
+        "Email",
+        "Voluntar",
         {
           key: "Delete",
           label: "Delete",
         },
       ],
-      showCreateBook: false,
+      showCreateCoursants: false,
       perPage: 15,
       currentPage: 1,
     };
   },
   components: {
-    CreateBook,
+    CreateCoursant,
   },
   computed: {
-    ...mapGetters("books", ["getAllBooks", "bookLoadingState", "calculCarti"]),
+    ...mapGetters("coursants", [
+      "getAllCoursants",
+      "coursantsLoadingState",
+      "getCoursantsCount",
+    ]),
     // totalRequest() {
-    //   return this.getAllBooks.reduce((acc, item) => acc + item.Stoc, 0);
+    //   return this.getAllCoursants.reduce((acc, item) => acc + item.Stoc, 0);
     // },
   },
   mounted() {
-    this.fetchAllBooks();
-    console.log(this.getAllBooks);
+    this.fetchAllCoursants();
+    console.log(this.getAllCoursants);
   },
   methods: {
-    ...mapActions("books", ["fetchAllBooks", "deleteBook"]),
-    toggleCreateBook() {
-      this.showCreateBook = !this.showCreateBook;
+    ...mapActions("coursants", [
+      "fetchAllCoursants",
+      "addCourse",
+      "deleteCoursant",
+    ]),
+    toggleCreateCoursants() {
+      this.showCreateCoursants = !this.showCreateCoursants;
     },
-    deleteBookClicked(idBook) {
+    deleteCoursantClicked(idBook) {
       console.warn(idBook);
-      this.deleteBook(idBook);
+      this.deleteCoursant(idBook);
     },
   },
 };

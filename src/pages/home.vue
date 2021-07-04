@@ -2,15 +2,15 @@
   <b-container>
     <!-- page title -->
     <b-row class="title-row">
-      <h1>Biblioteca</h1>
+      <h1 class="d-flex justify-content-center titlu">Biblioteca</h1>
     </b-row>
 
     <!-- page-content -->
     <b-row>
-      <b-col cols="3">
+      <b-col cols="2">
         <SidebarHome></SidebarHome>
       </b-col>
-      <b-col cols="9">
+      <b-col cols="10">
         <router-view></router-view>
       </b-col>
     </b-row>
@@ -32,7 +32,15 @@ export default {
 .title-row {
   min-height: 100px;
 }
-
+.titlu {
+  padding: 5%;
+}
+.test2 {
+  border-radius: 10px;
+  border-color: black;
+  padding: 2%;
+  background-color: white !important;
+}
 /* .bg-light {
   background: black;
 }

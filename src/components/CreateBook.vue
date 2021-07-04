@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Adauga un nou Autor</h2>
+    <h2>Adauga o noua carte</h2>
     <form v-on:submit.prevent="submitForm">
       <div class="row">
         <div class="form-group col-md-6">
@@ -12,6 +12,7 @@
             placeholder="ISBN"
             v-model="form._id"
             ref="_id"
+            maxlength="13"
           />
         </div>
         <div class="form-group col-md-6">
@@ -52,20 +53,6 @@
           </datalist>
         </div>
 
-        <!-- <div class="form-group col-md-6">
-          <label for="text">Autor</label> <br />
-          <b-form-select v-model="form.Autor" class="mb-6">
-            <b-form-select-option
-              v-for="autor in getAllAuthors"
-              :value="autor._id"
-              :key="autor._id"
-              refs="Autor"
-            >
-              {{ autor.Nume_Autor }} {{ autor.Prenume_Autor }}
-            </b-form-select-option>
-          </b-form-select>
-        </div> -->
-
         <div class="form-group col-md-6">
           <label for="text">Numar Exemplare</label>
           <input
@@ -94,15 +81,6 @@
             </option>
           </datalist>
         </div>
-
-        <!-- <div class="form-group col-md-6">
-        <label for="text">Autor</label> <br/>
-        <b-form-select v-model="form.Autor" class="mb-6">
-          <b-form-select-option v-for="autor in list" :value="autor._id" :key="autor._id">
-            {{ autor.Nume_Autor }} {{ autor.Prenume_Autor }}
-          </b-form-select-option>
-        </b-form-select>
-      </div> -->
       </div>
       <div class="form-group col-md-6">
         <button class="btn btn-primary" v-on:click="restetInput">
@@ -156,10 +134,9 @@ export default {
     ...mapActions("publishers", ["fetchAllPublishers"]),
     submitForm() {},
     restetInput() {
-      debugger;
       this.addBook(this.form);
       this.form._id = "";
-      this.form.Denumire_carte = "";
+      this.form.Denumire_Carte = "";
       this.form.Autor = "";
       this.form.Limba = "";
       this.form.Stoc = "";

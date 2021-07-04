@@ -7,6 +7,20 @@
         <router-link
           class="nav-link"
           exact-active-class="active"
+          :to="{ name: 'table-coursants' }"
+          >Lista Cursanti</router-link
+        >
+        <b-badge variant="badge bg-primary rounded-pill" pill>{{
+          countCourses()
+        }}</b-badge>
+      </b-list-group-item>
+
+      <b-list-group-item
+        class="d-flex justify-content-between align-items-center"
+      >
+        <router-link
+          class="nav-link"
+          exact-active-class="active"
           :to="{ name: 'table-courses' }"
           >Lista Cursuri</router-link
         >
