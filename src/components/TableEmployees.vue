@@ -1,15 +1,15 @@
 <template>
-  <div v-if="!authorLoadingState">
+  <div v-if="!employeeLoadingState">
     <b-col lg="4" class="pb-2"
-      ><b-button @click="toggleCreateAuthor">Adauga Autor</b-button></b-col
+      ><b-button @click="toggleCreateEmployee">Adauga Angajat</b-button></b-col
     >
-    <CreateAuthor v-if="showCreateAuthor"></CreateAuthor>
+    <CreateEmployee v-if="showCreateEmployee"></CreateEmployee>
     <b-table
       class="text-center"
       id="my-table"
       striped
       hover
-      :items="getAllAuthors"
+      :items="getAllEmployees"
       :fields="fields"
       :per-page="perPage"
       :current-page="currentPage"
@@ -17,7 +17,7 @@
       <template #cell(Delete)="data">
         <b-button
           size="sm"
-          v-on:click="deleteAuthorClicked(data.item._id)"
+          v-on:click="deleteEmployeeClicked(data.item._id)"
           class="mr-1"
           variant="danger"
         >
@@ -27,7 +27,7 @@
     </b-table>
     <b-pagination
       v-model="currentPage"
-      :total-rows="getAllAuthors.length"
+      :total-rows="getAllEmployees.length"
       :per-page="perPage"
       first-text="First"
       prev-text="Prev"
@@ -40,15 +40,17 @@
 </template>
 
 <script>
-import CreateAuthor from "./CreateAuthor.vue";
+import CreateEmployee from "./CreateEmployee.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
     return {
       fields: [
-        "Nume_Autor",
-        "Prenume_Autor",
+        "Nume",
+        "Prenume",
+        { key: "Nr_Tel", label: "Numar Telefon" },
+        "Email",
         {
           key: "Delete",
           label: "Delete",
@@ -56,28 +58,28 @@ export default {
       ],
       perPage: 15,
       currentPage: 1,
-      showCreateAuthor: false,
+      showCreateEmployee: false,
     };
   },
   components: {
-    CreateAuthor,
+    CreateEmployee,
   },
 
   computed: {
-    ...mapGetters("authors", ["getAllAuthors", "authorLoadingState"]),
+    ...mapGetters("employees", ["getAllEmployees", "employeeLoadingState"]),
   },
   mounted() {
-    this.fetchAllAuthors();
-    console.log(this.getAllAuthors);
+    this.fetchAllEmployees();
+    console.log(this.getAllEmployees);
   },
   methods: {
-    ...mapActions("authors", ["fetchAllAuthors", "deleteAuthor"]),
-    toggleCreateAuthor() {
-      this.showCreateAuthor = !this.showCreateAuthor;
+    ...mapActions("employees", ["fetchAllEmployees", "deleteEmployee"]),
+    toggleCreateEmployee() {
+      this.showCreateEmployee = !this.showCreateEmployee;
     },
 
-    deleteAuthorClicked(idAuthor) {
-      this.deleteAuthor(idAuthor);
+    deleteEmployeeClicked(idEmployee) {
+      this.deleteEmployee(idEmployee);
     },
   },
 };

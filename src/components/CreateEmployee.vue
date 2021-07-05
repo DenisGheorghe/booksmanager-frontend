@@ -1,7 +1,7 @@
 
 <template>
   <div>
-    <h2>Add a New Author</h2>
+    <h2>Adauga un nou Angajat</h2>
     <form v-on:submit.prevent="submitForm">
       <div class="row">
         <div class="form-group col-md-6">
@@ -27,12 +27,12 @@
           />
         </div>
         <div class="form-group col-md-6">
-          <label for="text">Nr_Tel</label>
+          <label for="text">Numar Telefon</label>
           <input
             type="text"
             class="form-control"
             id="Nr_Tel"
-            placeholder="Nr_Tel"
+            placeholder="Numar telefon"
             ref="Nr_Tel"
             v-model="form.Nr_Tel"
             maxlength="10"
@@ -73,12 +73,12 @@ export default {
     };
   },
   methods: {
-    ...mapActions("authors", ["addAuthor"]),
+    ...mapActions("employees", ["addEmployee"]),
     submitForm(a) {
       console.log(a);
     },
     restetInput() {
-      this.addAuthor(this.form);
+      this.addEmployee(this.form);
 
       this.form.Nume = "";
       this.form.Prenume = "";

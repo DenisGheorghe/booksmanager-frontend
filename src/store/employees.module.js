@@ -1,4 +1,4 @@
-// Author state module
+// Employee state module
 import axios from 'axios';
 import Vue from 'vue';
 
@@ -10,11 +10,11 @@ const state = {
 }
 
 const getters = {
-    getAllEmplyees(state) {
+    getAllEmployees(state) {
         return state.employeeList;
 
     },
-    emplyeeLoadingState(state) {
+    employeeLoadingState(state) {
         return state.isLoading;
     },
     getEmployeeCount(state) {
@@ -23,7 +23,7 @@ const getters = {
 }
 
 const actions = {
-    fetchAllAuthors({ commit, state }) {
+    fetchAllEmployees({ commit, state }) {
         Vue.set(state, 'isLoading', true);
         axios
             .get("http://localhost:4000/api/angajati/get")
@@ -40,13 +40,13 @@ const actions = {
             })
     },
 
-    addAuthor({ commit }, newAuthor) {
+    addEmployee({ commit }, newAuthor) {
         Vue.set(state, 'isLoading', true);
         axios
             .post("http://localhost:4000/api/angajati/create", newAuthor)
             .then(resp => {
                 const authorToAdd = resp.data;
-                commit('ADD_AUTHOR', authorToAdd)
+                commit('ADD_EMPLOYEE', authorToAdd)
             })
             .catch(err => {
                 console.log('Error has occured', err);
@@ -55,10 +55,14 @@ const actions = {
                 Vue.set(state, 'isLoading', false);
             })
     },
-    deleteAuthor({ commit }, idEmployee) {
+    deleteEmployee({ commit }, idEmployee) {
         //delete employee from server
         Vue.set(state, 'isLoading', true);
-        axios.delete('http://localhost:4000/api/angajati/delete/', { _id: idEmployee })
+        axios.delete('http://localhost:4000/api/angajati/delete/', {
+            data: {
+                _id: idEmployee
+            }
+        })
             .then(() => {
                 commit('DELETE_EMPLOYEE', idEmployee)
             })
@@ -79,7 +83,7 @@ const mutations = {
         Vue.set(state, 'employeeList', employeeList);
         Vue.set(state, 'emplyeeCount', employeeList.length);
     },
-    ADD_AUTHOR(state, employee) {
+    ADD_EMPLOYEE(state, employee) {
         Vue.set(state, 'employeeList', [...state.employeeList, employee]);
         Vue.set(state, 'emplyeeCount', state.employeeList.length);
     },

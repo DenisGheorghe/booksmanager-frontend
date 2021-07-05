@@ -11,9 +11,8 @@
           ><router-link to="/courses">Cursuri</router-link></b-nav-item
         >
         <b-nav-item
-          ><router-link to="/register">Cursanti</router-link></b-nav-item
+          ><router-link to="/employees">Angajati</router-link></b-nav-item
         >
-
         <!-- Navbar dropdowns -->
 
         <b-nav-item-dropdown text="User" right>
