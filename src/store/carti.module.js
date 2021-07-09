@@ -22,8 +22,9 @@ const getters = {
         return state.cartiCount;
     },
     calculCarti(state) {
-        return state.booksList.reduce((acc, item) => acc + item.Stoc, 0);
+        return state.booksList.reduce((acc, item) => acc + item.StocCurent, 0);
     },
+
     // getAllBooksLang(state) {
     //     return state.querryBooksByLanguage;
     // }
@@ -79,7 +80,7 @@ const actions = {
             })
     },
 
-    deleteBook({ commit }, idBook) {
+    deletePublisher({ commit }, idBook) {
         //delete book from server
         Vue.set(state, 'isLoading', true);
 

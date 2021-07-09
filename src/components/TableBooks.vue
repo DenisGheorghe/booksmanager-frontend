@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       fields: [
-        { key: "_id", label: "ISBN" },
+        { key: "ISBN", label: "ISBN" },
         ,
         "Denumire_Carte",
         { key: "Autor.Nume_Autor", label: "Nume Autor" },
@@ -70,9 +70,6 @@ export default {
   },
   computed: {
     ...mapGetters("books", ["getAllBooks", "bookLoadingState", "calculCarti"]),
-    // totalRequest() {
-    //   return this.getAllBooks.reduce((acc, item) => acc + item.Stoc, 0);
-    // },
   },
   mounted() {
     this.fetchAllBooks();
@@ -84,7 +81,6 @@ export default {
       this.showCreateBook = !this.showCreateBook;
     },
     deleteBookClicked(idBook) {
-      console.warn(idBook);
       this.deleteBook(idBook);
     },
   },

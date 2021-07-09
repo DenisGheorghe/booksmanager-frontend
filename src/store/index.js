@@ -7,6 +7,7 @@ import publisherModule from './publishers.module';
 import CoursesModule from './courses.module';
 import CoursantsModule from './coursants.module';
 import EmployeesModule from './employees.module';
+import BorrowsModule from './borrows.module';
 Vue.use(Vuex);
 export default new Vuex.Store({
     modules: {
@@ -16,6 +17,7 @@ export default new Vuex.Store({
         courses: CoursesModule,
         coursants: CoursantsModule,
         employees: EmployeesModule,
+        borrows: BorrowsModule,
     }
 })
 

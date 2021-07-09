@@ -1,70 +1,86 @@
 <template>
   <div>
-    <b-list-group>
-      <b-list-group-item
-        class="d-flex justify-content-between align-items-center"
-      >
-        <router-link
-          class="nav-link"
-          exact-active-class="active"
-          :to="{ name: 'table-books' }"
-          >Lista Carti</router-link
+    <v-list>
+      <b-list-group>
+        <b-list-group-item
+          class="d-flex justify-content-between align-items-center"
         >
-        <b-badge variant="badge bg-primary rounded-pill" pill>{{
-          getCartiCount
-        }}</b-badge>
-      </b-list-group-item>
-      <b-list-group-item
-        class="d-flex justify-content-between align-items-center"
-      >
-        <router-link
-          class="nav-link"
-          exact-active-class="active"
-          :to="{ name: 'table-authors' }"
-          >Lista Autori</router-link
+          <router-link
+            class="nav-link"
+            exact-active-class="active"
+            :to="{ name: 'table-books' }"
+            >Lista Carti</router-link
+          >
+          <b-badge variant="badge bg-primary rounded-pill" pill>{{
+            getCartiCount
+          }}</b-badge>
+        </b-list-group-item>
+        <b-list-group-item
+          class="d-flex justify-content-between align-items-center"
         >
-        <b-badge variant="badge bg-primary rounded-pill" pill>
-          {{ getAuthorCount }}
-        </b-badge>
-      </b-list-group-item>
-      <b-list-group-item
-        class="d-flex justify-content-between align-items-center"
-      >
-        <router-link
-          class="nav-link"
-          exact-active-class="active"
-          :to="{ name: 'table-publishers' }"
-          >Lista Edituri</router-link
+          <router-link
+            class="nav-link"
+            exact-active-class="active"
+            :to="{ name: 'table-authors' }"
+            >Lista Autori</router-link
+          >
+          <b-badge variant="badge bg-primary rounded-pill" pill>
+            {{ getAuthorCount }}
+          </b-badge>
+        </b-list-group-item>
+        <b-list-group-item
+          class="d-flex justify-content-between align-items-center"
         >
-        <b-badge variant="badge bg-primary rounded-pill" pill>
-          {{ getPublisherCount }}
-        </b-badge>
-      </b-list-group-item>
-      <b-list-group-item
-        class="d-flex justify-content-between align-items-center"
-      >
-        <router-link
-          class="nav-link"
-          exact-active-class="active"
-          :to="{ name: 'table-publishers' }"
-          >Imprumuturi</router-link
+          <router-link
+            class="nav-link"
+            exact-active-class="active"
+            :to="{ name: 'table-publishers' }"
+            >Lista Edituri</router-link
+          >
+          <b-badge variant="badge bg-primary rounded-pill" pill>
+            {{ getPublisherCount }}
+          </b-badge>
+        </b-list-group-item>
+        <b-list-group-item
+          class="d-flex justify-content-between align-items-center"
         >
-        <b-badge variant="badge bg-primary rounded-pill" pill>
-          {{ getPublisherCount }}
-        </b-badge>
-      </b-list-group-item>
+          <router-link
+            class="nav-link"
+            exact-active-class="active"
+            :to="{ name: 'books-borrows' }"
+            >Imprumuturi</router-link
+          >
+          <b-badge variant="badge bg-primary rounded-pill" pill>
+            {{ getBorrowsCount }}
+          </b-badge>
+        </b-list-group-item>
+      </b-list-group>
+      <br />
+      <br />
+      <b-list-group>
+        <b-list-group-item
+          class="d-flex justify-content-between align-items-center"
+        >
+          <router-link
+            class="nav-link"
+            exact-active-class="active"
+            :to="{ name: 'books-reports' }"
+            >Rapoarte Carti</router-link
+          >
+        </b-list-group-item>
 
-      <b-list-group-item
-        class="d-flex justify-content-between align-items-center"
-      >
-        <router-link
-          class="nav-link"
-          exact-active-class="active"
-          :to="{ name: 'books-reports' }"
-          >Rapoarte</router-link
+        <b-list-group-item
+          class="d-flex justify-content-between align-items-center"
         >
-      </b-list-group-item>
-    </b-list-group>
+          <router-link
+            class="nav-link"
+            exact-active-class="active"
+            :to="{ name: 'borrows-reports' }"
+            >Rapoarte Imprumuturi</router-link
+          >
+        </b-list-group-item>
+      </b-list-group>
+    </v-list>
   </div>
 </template>
 
@@ -84,6 +100,7 @@ export default {
     ...mapGetters("books", ["getCartiCount"]),
     ...mapGetters("authors", ["getauthorCount"]),
     ...mapGetters("publishers", ["getPublisherCount"]),
+    ...mapGetters("borrows", ["getBorrowsCount"]),
   },
 };
 </script>

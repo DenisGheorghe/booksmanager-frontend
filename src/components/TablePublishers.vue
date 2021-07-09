@@ -14,8 +14,13 @@
       :per-page="perPage"
       :current-page="currentPage"
     >
-      <template v-slot:cell(Delete)="">
-        <b-button size="sm" v-on: click="" class="mr-1" variant="danger">
+      <template #cell(Delete)="data">
+        <b-button
+          size="sm"
+          v-on:click="deletePublisherClicked(data.item._id)"
+          class="mr-1"
+          variant="danger"
+        >
           Delete
         </b-button>
       </template>
@@ -66,9 +71,12 @@ export default {
     console.log(this.getAllPublishers);
   },
   methods: {
-    ...mapActions("publishers", ["fetchAllPublishers"]),
+    ...mapActions("publishers", ["fetchAllPublishers", "deletePublisher"]),
     toggleCreatePublisher() {
       this.showCreatePublisher = !this.showCreatePublisher;
+    },
+    deletePublisherClicked(idPublisher) {
+      this.deletePublisher(idPublisher);
     },
   },
 };

@@ -2,7 +2,7 @@
 <template>
   <div>
     <h2>Adauga Editura</h2>
-    <form v-on:submit.prevent="submitForm">
+    <form v-on:submit.prevent>
       <div class="row">
         <div class="form-group col-md-6">
           <label for="Nume_Editura">Denumire Editura</label>
@@ -23,6 +23,7 @@
             id="Nr_Tel_Editura"
             placeholder="Numar de Telefon"
             ref="Prenume"
+            maxlength="10"
             v-model="form.Nr_Tel_Editura"
           />
         </div>
@@ -41,7 +42,6 @@ export default {
   data() {
     return {
       form: {
-        //  _id: "",
         Nume_Editura: "",
         Nr_Tel_Editura: "",
       },

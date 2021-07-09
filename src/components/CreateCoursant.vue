@@ -46,7 +46,7 @@
             placeholder="Numar de telefon"
             v-model="form.Nr_Tel"
             ref="Nr_Tel"
-            maxlength="13"
+            maxlength="10"
           />
         </div>
         <div class="form-group col-md-6">

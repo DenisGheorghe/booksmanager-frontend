@@ -52,8 +52,33 @@ const actions = {
             .finally(() => {
                 Vue.set(state, 'isLoading', false);
             })
-    }
+    },
+    deletePublisher({ commit }, idPublisher) {
+        //delete publisher from server
+        Vue.set(state, 'isLoading', true);
+
+
+
+        axios.delete('http://localhost:4000/api/edituri/delete/', {
+            data: {
+                _id: idPublisher
+            }
+        })
+            .then(() => {
+                commit('DELETE_PUBLISHER', idPublisher)
+                console.warn(`Warn din store then ${idPublisher}`);
+            })
+            .catch(err => {
+                console.log('Error has occured', err);
+            })
+            .finally(() => {
+                Vue.set(state, 'isLoading', false);
+            })
+    },
+
 }
+
+
 
 const mutations = {
     UPDATE_STATE(state, publisherList) {
@@ -63,7 +88,19 @@ const mutations = {
     ADD_PUBLISHER(state, publisher) {
         Vue.set(state, 'publisherList', [...state.publisherList, publisher]);
         Vue.set(state, 'publisherCount', state.publisherList.length);
-    }
+    },
+    DELETE_PUBLISHER(state, idPublisher) {
+        const index = state.publisherList.findIndex((publisher) => publisher._id == idPublisher)
+        console.warn(`DELETE_PUBLISHER Sore index: ${index} idPublisher: ${idPublisher}`)
+        if (index != -1) {
+            state.publisherList.splice(index, 1)
+            Vue.set(state, 'publisherList', state.publisherList);
+            Vue.set(state, 'cartiCount', state.publisherList.length);
+        }
+        else {
+            console.log(`Cartea cu id-ul ${idPublisher} nu a fost gasita`)
+        }
+    },
 }
 export default {
     namespaced: true,

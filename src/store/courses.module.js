@@ -1,24 +1,22 @@
-// Course state module
+// Author state module
 import axios from 'axios';
 import Vue from 'vue';
 
 const state = {
-    coursesList: [
-    ],
-    courseCount: 1,
+    courseList: [],
+    couseCount: 0,
     isLoading: false,
 }
 
 const getters = {
     getAllCourses(state) {
-        return state.coursesList;
-
+        return state.courseList;
     },
-    courseLoadingState(state) {
+    couseLoadingState(state) {
         return state.isLoading;
     },
-    getCourseCount(state) {
-        return state.courseCount;
+    getCoursesCount(state) {
+        return state.couseCount;
     }
 }
 
@@ -28,9 +26,9 @@ const actions = {
         axios
             .get("http://localhost:4000/api/cursuri/get")
             .then((resp) => {
-                const coursesList = resp.data;
+                const courseList = resp.data;
 
-                commit('UPDATE_STATE', coursesList)
+                commit('UPDATE_STATE', courseList)
             })
             .catch(err => {
                 console.log('Error has occured', err);
@@ -54,17 +52,49 @@ const actions = {
             .finally(() => {
                 Vue.set(state, 'isLoading', false);
             })
+    },
+    deleteCourse({ commit }, idCourse) {
+        //delete course from server
+        Vue.set(state, 'isLoading', true);
+        axios.delete('http://localhost:4000/api/cursuri/delete/', {
+            data: {
+                _id: idCourse
+            }
+        })
+            .then(() => {
+                commit('DELETE_COURSE', idCourse)
+            })
+            .catch(err => {
+                console.log('Error has occured', err);
+            })
+            .finally(() => {
+                Vue.set(state, 'isLoading', false);
+            })
     }
 }
 
+
+
+
 const mutations = {
-    UPDATE_STATE(state, coursesList) {
-        Vue.set(state, 'coursesList', coursesList);
-        Vue.set(state, 'courseCount', coursesList.length);
+    UPDATE_STATE(state, courseList) {
+        Vue.set(state, 'courseList', courseList);
+        Vue.set(state, 'couseCount', courseList.length);
     },
     ADD_COURSE(state, course) {
-        Vue.set(state, 'coursesList', [...state.coursesList, course]);
-        Vue.set(state, 'courseCount', state.coursesList.length);
+        Vue.set(state, 'courseList', [...state.courseList, course]);
+        Vue.set(state, 'couseCount', state.courseList.length);
+    },
+    DELETE_COURSE(state, idCourse) {
+        const index = state.courseList.findIndex((course) => course._id == idCourse)
+        if (index != -1) {
+            state.courseList.splice(index, 1)
+            Vue.set(state, 'courseList', state.courseList);
+            Vue.set(state, 'couseCount', state.courseList.length);
+        }
+        else {
+            console.log(`Cartea cu id-ul ${idCourse} nu a fost gasita`)
+        }
     }
 }
 

@@ -1,41 +1,46 @@
 <template>
-  <div v-if="!employeeLoadingState">
-    <b-col lg="4" class="pb-2"
-      ><b-button @click="toggleCreateEmployee">Adauga Angajat</b-button></b-col
-    >
-    <CreateEmployee v-if="showCreateEmployee"></CreateEmployee>
-    <b-table
-      class="text-center"
-      id="my-table"
-      striped
-      hover
-      :items="getAllEmployees"
-      :fields="fields"
-      :per-page="perPage"
-      :current-page="currentPage"
-    >
-      <template #cell(Delete)="data">
-        <b-button
-          size="sm"
-          v-on:click="deleteEmployeeClicked(data.item._id)"
-          class="mr-1"
-          variant="danger"
-        >
-          Delete
-        </b-button>
-      </template>
-    </b-table>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="getAllEmployees.length"
-      :per-page="perPage"
-      first-text="First"
-      prev-text="Prev"
-      next-text="Next"
-      last-text="Last"
-    ></b-pagination>
+  <div>
+    <h2>Total Angajati: 💼 {{ getEmployeeCount }}</h2>
+    <div v-if="!employeeLoadingState">
+      <b-col lg="4" class="pb-2"
+        ><b-button @click="toggleCreateEmployee"
+          >Adauga Angajat</b-button
+        ></b-col
+      >
+      <CreateEmployee v-if="showCreateEmployee"></CreateEmployee>
+      <b-table
+        class="text-center"
+        id="my-table"
+        striped
+        hover
+        :items="getAllEmployees"
+        :fields="fields"
+        :per-page="perPage"
+        :current-page="currentPage"
+      >
+        <template #cell(Delete)="data">
+          <b-button
+            size="sm"
+            v-on:click="deleteEmployeeClicked(data.item._id)"
+            class="mr-1"
+            variant="danger"
+          >
+            Delete
+          </b-button>
+        </template>
+      </b-table>
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="getAllEmployees.length"
+        :per-page="perPage"
+        first-text="First"
+        prev-text="Prev"
+        next-text="Next"
+        last-text="Last"
+      ></b-pagination>
 
-    <router-view></router-view>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -66,7 +71,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters("employees", ["getAllEmployees", "employeeLoadingState"]),
+    ...mapGetters("employees", [
+      "getAllEmployees",
+      "employeeLoadingState",
+      "getEmployeeCount",
+    ]),
   },
   mounted() {
     this.fetchAllEmployees();

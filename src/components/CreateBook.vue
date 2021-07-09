@@ -8,10 +8,10 @@
           <input
             type="text"
             class="form-control"
-            id="_id"
+            id="ISBN"
             placeholder="ISBN"
-            v-model="form._id"
-            ref="_id"
+            v-model="form.ISBN"
+            ref="ISBN"
             maxlength="13"
           />
         </div>
@@ -41,7 +41,11 @@
         </div>
         <div class="form-group col-md-6">
           <label for="text">Autor</label> <br />
-          <b-form-input v-model="form.Autor" list="my-list-id"></b-form-input>
+          <b-form-input
+            v-model="form.Autor"
+            list="my-list-id"
+            placeholder="Autor"
+          ></b-form-input>
           <datalist id="my-list-id">
             <option
               v-for="autor in getAllAuthors"
@@ -70,6 +74,7 @@
           <b-form-input
             v-model="form.Cod_Editura"
             list="my-list-ids"
+            placeholder="Editura"
           ></b-form-input>
           <datalist id="my-list-ids">
             <option
@@ -83,9 +88,12 @@
         </div>
       </div>
       <div class="form-group col-md-6">
+        <br />
         <button class="btn btn-primary" v-on:click="restetInput">
           Trimite
         </button>
+        <br />
+        <br />
       </div>
     </form>
   </div>
@@ -97,7 +105,7 @@ export default {
   data() {
     return {
       form: {
-        _id: "",
+        ISBN: "",
         Denumire_carte: "",
         Autor: "",
         Limba: "",
@@ -135,7 +143,7 @@ export default {
     submitForm() {},
     restetInput() {
       this.addBook(this.form);
-      this.form._id = "";
+      this.form.ISBN = "";
       this.form.Denumire_Carte = "";
       this.form.Autor = "";
       this.form.Limba = "";

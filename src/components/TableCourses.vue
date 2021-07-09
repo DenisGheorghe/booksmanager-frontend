@@ -1,7 +1,7 @@
 <template>
-  <div v-if="!courseLoadingState">
+  <div>
     <b-col lg="4" class="pb-2"
-      ><b-button @click="toggleCreateAuthor">Adauga Curs</b-button></b-col
+      ><b-button @click="toggleCreateCourse">Adauga Curs</b-button></b-col
     >
     <CreateCourse v-if="showCreateCourse"></CreateCourse>
     <b-table
@@ -14,8 +14,13 @@
       :per-page="perPage"
       :current-page="currentPage"
     >
-      <template v-slot:cell(Delete)="">
-        <b-button size="sm" v-on: click="" class="mr-1" variant="danger">
+      <template #cell(Delete)="data">
+        <b-button
+          size="sm"
+          v-on:click="deleteCourseClicked(data.item._id)"
+          class="mr-1"
+          variant="danger"
+        >
           Delete
         </b-button>
       </template>
@@ -42,10 +47,9 @@ export default {
   data() {
     return {
       fields: [
-        { key: "Denumire", label: "Denumirea Cursului" },
+        "Denumire",
         "Limba",
-        { key: "Tip", label: "Modul de desfasurare" },
-
+        "Tip",
         {
           key: "Delete",
           label: "Delete",
@@ -61,16 +65,20 @@ export default {
   },
 
   computed: {
-    ...mapGetters("courses", ["getAllCourses", "courseLoadingState"]),
+    ...mapGetters("courses", ["getAllCourses", "couseLoadingState"]),
   },
   mounted() {
     this.fetchAllCourses();
     console.log(this.getAllCourses);
   },
   methods: {
-    ...mapActions("courses", ["fetchAllCourses"]),
-    toggleCreateAuthor() {
+    ...mapActions("courses", ["fetchAllCourses", "deleteCourse"]),
+    toggleCreateCourse() {
       this.showCreateCourse = !this.showCreateCourse;
+    },
+
+    deleteCourseClicked(idCourse) {
+      this.deleteCourse(idCourse);
     },
   },
 };

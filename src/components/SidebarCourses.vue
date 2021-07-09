@@ -11,7 +11,7 @@
           >Lista Cursanti</router-link
         >
         <b-badge variant="badge bg-primary rounded-pill" pill>{{
-          countCourses()
+          getCoursantsCount
         }}</b-badge>
       </b-list-group-item>
 
@@ -25,7 +25,7 @@
           >Lista Cursuri</router-link
         >
         <b-badge variant="badge bg-primary rounded-pill" pill>{{
-          countCourses()
+          getCoursesCount
         }}</b-badge>
       </b-list-group-item>
     </b-list-group>
@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
   data() {
@@ -42,27 +41,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("books", ["getCartiCount"]),
-  },
-  mounted() {
-    axios
-      .get("http://localhost:4000/api/cursuri/get")
-      .then((resp) => {
-        this.Courses = resp.data;
-        console.log(resp);
-      })
-      .catch((err) => {
-        console.err(err);
-      });
-  },
-  methods: {
-    countCourses() {
-      var countAutor = 0;
-      for (var i = 0; i < this.Courses.length; ++i) {
-        countAutor++;
-      }
-      return countAutor;
-    },
+    ...mapGetters("courses", ["getCoursesCount"]),
+    ...mapGetters("coursants", ["getCoursantsCount"]),
   },
 };
 </script>

@@ -10,11 +10,14 @@ import TableCourses from '../components/TableCourses';
 import TablePublishers from '../components/TablePublishers';
 import TableCoursants from '../components/TableCoursants';
 import TableEmployees from '../components/TableEmployees';
+import BorrowsReports from '../components/ReportBorrows';
+import TableBorrows from '../components/TableBorrows';
 //import { component } from 'vue/types/umd';
 import CreateAuthor from '../components/CreateAuthor';
 import CreateBook from '../components/CreateBook';
 import CreatePublisher from '../components/CreatePublisher';
 import BooksReports from '../components/ReportBooks';
+import CreateBorrow from '../components/CreateBorrow';
 
 
 Vue.use(VueRouter)
@@ -25,6 +28,8 @@ const routes = [
       { path: 'table-authors', name: 'table-authors', component: TableAuthors },
       { path: 'table-publishers', name: 'table-publishers', component: TablePublishers },
       { path: '/books-reports', name: 'books-reports', component: BooksReports },
+      { path: '/books-borrows', name: 'books-borrows', component: TableBorrows },
+      { path: '/borrows-reports', name: 'borrows-reports', component: BorrowsReports },
     ]
   },
   {
@@ -39,7 +44,7 @@ const routes = [
     ]
   },
   { path: '/register', component: RegisterPage },
-
+  { path: '/create_borrow', name: 'create_borrow', component: CreateBorrow },
   { path: '/create_autor', name: 'create_author', component: CreateAuthor },
   { path: '/create_book', component: CreateBook },
   { path: '/create_publisher', component: CreatePublisher },

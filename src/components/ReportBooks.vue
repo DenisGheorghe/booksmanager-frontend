@@ -6,7 +6,7 @@
         <form v-on:submit.prevent v-if="showSearchLanguage">
           <input type="text" v-model="reportLanguage" />
           <button class="btn btn-primary" v-on:click="submitFormLang">
-            Submit
+            Trimite
           </button>
         </form>
       </b-col>
@@ -15,7 +15,7 @@
         <div v-on:submit.prevent v-if="showSearchAuthor">
           <input type="text" v-model="reportAuthor" />
           <button class="btn btn-primary" v-on:click="submitFormAuth">
-            Submit
+            Trimite
           </button>
         </div>
       </b-col>
@@ -53,7 +53,7 @@ export default {
       reportAuthor: "",
       lista: [],
       fields: [
-        { key: "_id", label: "ISBN" },
+        { key: "ISBN", label: "ISBN" },
         ,
         "Denumire_Carte",
         { key: "Autor.Nume_Autor", label: "Nume Autor" },
@@ -68,13 +68,7 @@ export default {
       currentPage: 1,
     };
   },
-  computed: {
-    // axiosParams() {
-    //   const params = new URLSearchParams();
-    //   params.append("", "Engleza");
-    //   return params;
-    // },
-  },
+
   methods: {
     submitFormLang() {
       console.log(this.reportLanguage);

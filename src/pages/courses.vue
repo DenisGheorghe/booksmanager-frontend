@@ -2,7 +2,7 @@
   <b-container>
     <!-- page title -->
     <b-row class="title-row">
-      <h1>Cursuri</h1>
+      <h1 class="d-flex justify-content-center titlu">Cursuri</h1>
     </b-row>
 
     <!-- page-content -->
