@@ -45,6 +45,7 @@ const actions = {
             .then(resp => {
                 const publisherToAdd = resp.data;
                 commit('ADD_PUBLISHER', publisherToAdd)
+                console.error(publisherToAdd)
             })
             .catch(err => {
                 console.log('Error has occured', err);

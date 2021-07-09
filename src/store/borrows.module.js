@@ -63,7 +63,7 @@ const actions = {
         //delete borrow from server
         Vue.set(state, 'isLoading', true);
 
-        axios.delete('http://localhost:4000/api/carti/delete/', {
+        axios.delete('http://localhost:4000/api/fise_imprumut/delete/', {
             data: {
                 _id: idBorrow
             }
@@ -78,6 +78,25 @@ const actions = {
                 Vue.set(state, 'isLoading', false);
             })
     },
+    updateBorrow({ commit }, newBorrow) {
+        //delete borrow from server
+        Vue.set(state, 'isLoading', true);
+
+        axios.put('http://localhost:4000/api/fise_imprumut/update', {
+            data: {
+                ...newBorrow,
+            }
+        })
+            .then((resp) => {
+                commit('UPDATE_BORROW', resp.data)
+            })
+            .catch(err => {
+                console.log('Error has occured', err);
+            })
+            .finally(() => {
+                Vue.set(state, 'isLoading', false);
+            })
+    }
 }
 
 const mutations = {
@@ -101,6 +120,18 @@ const mutations = {
             console.log(`Cartea cu id-ul ${idBorrow} nu a fost gasita`)
         }
     },
+    UPDATE_BORROW(state, newBorrow) {
+        console.error(newBorrow)
+        const newState = state.borrowList.map((borrow) => {
+            console.log(borrow._id === newBorrow._id)
+            return borrow._id === newBorrow._id
+                ? newBorrow
+                : borrow
+        }
+        );
+
+        Vue.set(state, 'borrowList', newState);
+    }
     // QUERRY_LANGUAGE(state, bookLanguageList) {
     //     Vue.set(state, 'bookLanguageList', state.querryBooksLanguage);
     //     Vue.set(state, 'querryBooksTotalLanguage', bookLanguageList.length);

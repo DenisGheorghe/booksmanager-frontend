@@ -17,7 +17,7 @@
       :per-page="perPage"
       :current-page="currentPage"
     >
-      <template #cell(Returnat)="data">
+      <template #cell(Returnat1)="data">
         <b-button
           size="sm"
           v-on:click="setTrue(data.item._id)"
@@ -28,7 +28,7 @@
         </b-button>
       </template>
       <template #cell(CartiImprumutate)="data">
-        <span v-for="carte in data.item.Carti">
+        <span v-for="carte in data.item.Carti" :key="carte._id">
           {{ carte.Cod_Carte.Denumire_Carte }} <br />
         </span>
       </template>
@@ -67,6 +67,7 @@ export default {
     return {
       fields: [
         { key: "Cod_Cursant.Nume", label: "Nume Cursant" },
+        { key: "Returnat", label: "Returnat" },
         { key: "Cod_Cursant.Prenume", label: "Prenume Cursant" },
         { key: "Cod_Curs.Denumire", label: "Curs" },
         {
@@ -84,7 +85,7 @@ export default {
           label: "Carti Imprumutate",
         },
         {
-          key: "Returnat",
+          key: "Returnat1",
           label: "Actiuni",
         },
         {
@@ -112,7 +113,11 @@ export default {
     console.log(this.getAllBorrows);
   },
   methods: {
-    ...mapActions("borrows", ["fetchAllBorrows", "deleteBorrow"]),
+    ...mapActions("borrows", [
+      "fetchAllBorrows",
+      "deleteBorrow",
+      "updateBorrow",
+    ]),
     toggleCreateBorrow() {
       this.showCreateBorrow = !this.showCreateBorrow;
     },
@@ -125,6 +130,12 @@ export default {
     },
     formatDateAssigned2(value) {
       return moment(value).format("DD.MM.YYYY");
+    },
+    setTrue(id) {
+      this.updateBorrow({
+        id,
+        Returnat: true,
+      });
     },
     toggleDetails() {},
   },
