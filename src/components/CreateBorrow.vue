@@ -21,7 +21,7 @@
           </datalist>
         </div>
 
-        <div class="form-group col-md-6">
+        <!-- <div class="form-group col-md-6">
           <label for="text">Curs</label> <br />
           <b-form-input
             v-model="form.Cod_Curs"
@@ -36,7 +36,7 @@
               {{ course.Denumire }}
             </option>
           </datalist>
-        </div>
+        </div> -->
         <div class="form-group col-md-6">
           <label for="text">Angajat</label> <br />
           <b-form-input
@@ -87,7 +87,7 @@
       <div class="row">
         <div class="form-group col-md-4 offset-md-4 text-center">
           <h1>Carti</h1>
-          <div v-for="(listBookBorrow, index) in form.Carti">
+          <div v-for="(listBookBorrow, index) in form.Carti" :key="index">
             <b-form-input
               v-model="listBookBorrow.Cod_Carte"
               list="my-list-id_Carte"
@@ -118,7 +118,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import axios from "axios";
+
 export default {
   name: "PostFormAxios",
   data() {

@@ -80,11 +80,9 @@ const actions = {
             })
     },
 
-    deletePublisher({ commit }, idBook) {
+    deleteBook({ commit }, idBook) {
         //delete book from server
         Vue.set(state, 'isLoading', true);
-
-
 
         axios.delete('http://localhost:4000/api/carti/delete/', {
             data: {
@@ -102,6 +100,26 @@ const actions = {
                 Vue.set(state, 'isLoading', false);
             })
     },
+    updateBook({ commit }, bookUpdate) {
+        //delete book from server
+        Vue.set(state, 'isLoading', true);
+
+        axios.put('http://localhost:4000/api/carti/update', {
+            data: {
+                ...bookUpdate,
+            }
+        })
+            .then((resp) => {
+                console.warn("bookUpdate")
+                commit('UPDATE_BOOK', resp.data)
+            })
+            .catch(err => {
+                console.log('Error has occured', err);
+            })
+            .finally(() => {
+                Vue.set(state, 'isLoading', false);
+            })
+    }
 }
 
 const mutations = {
@@ -125,10 +143,17 @@ const mutations = {
             console.log(`Cartea cu id-ul ${idBook} nu a fost gasita`)
         }
     },
-    // QUERRY_LANGUAGE(state, bookLanguageList) {
-    //     Vue.set(state, 'bookLanguageList', state.querryBooksLanguage);
-    //     Vue.set(state, 'querryBooksTotalLanguage', bookLanguageList.length);
-    // },
+    UPDATE_BOOK(state, bookUpdate) {
+        console.error(bookUpdate)
+        const newState = state.booksList.map((book) => {
+            console.log(book._id === bookUpdate._id)
+            return book._id === bookUpdate._id
+                ? bookUpdate
+                : book
+        }
+        );
+        Vue.set(state, 'booksList', newState);
+    }
 }
 
 export default {

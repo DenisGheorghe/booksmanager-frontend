@@ -4,15 +4,70 @@
 
     <!-- <b-table striped hover :items="items"></b-table> -->
     <b-col lg="4" class="pb-2"
-      ><b-button @click="toggleCreateBorrow">Adauga Carte</b-button></b-col
-    >
+      ><b-button @click="toggleCreateBorrow">Adauga Carte</b-button>
+    </b-col>
+
     <CreateBorrow v-if="showCreateBorrow"></CreateBorrow>
+    <div class="d-flex justify-content-end">
+      <b-form-checkbox
+        id="checkbox-1"
+        v-model="status"
+        name="checkbox-1"
+        value="Doar nereturnate"
+        unchecked-value="Toate imprumuturile"
+      >
+      </b-form-checkbox>
+
+      <div>
+        Sunt: <strong>{{ status }}</strong>
+      </div>
+    </div>
+
     <b-table
+      v-if="status === 'Toate imprumuturile'"
       class="text-center"
       id="my-table"
       striped
       hover
       :items="getAllBorrows"
+      :fields="fields"
+      :per-page="perPage"
+      :current-page="currentPage"
+    >
+      <template #cell(Returnat1)="data">
+        <b-button
+          size="sm"
+          v-on:click="setTrue(data.item._id)"
+          class="mr-1"
+          variant="success"
+        >
+          Returnare
+        </b-button>
+      </template>
+      <template #cell(CartiImprumutate)="data">
+        <span v-for="carte in data.item.Carti" :key="carte._id">
+          {{ carte.Cod_Carte.Denumire_Carte }} <br />
+        </span>
+      </template>
+      <template #cell(Delete)="data">
+        <b-button
+          size="sm"
+          v-on:click="deleteBorrowClicked(data.item._id)"
+          class="mr-1"
+          variant="danger"
+        >
+          Delete
+        </b-button>
+      </template>
+    </b-table>
+
+    <b-table
+      v-if="status === 'Doar nereturnate'"
+      class="text-center"
+      id="my-table"
+      striped
+      hover
+      :items="getAllBorrowstTrue"
       :fields="fields"
       :per-page="perPage"
       :current-page="currentPage"
@@ -65,6 +120,8 @@ const m = moment();
 export default {
   data() {
     return {
+      retur: "true",
+      status: "Toate imprumuturile",
       fields: [
         { key: "Cod_Cursant.Nume", label: "Nume Cursant" },
         { key: "Returnat", label: "Returnat" },
@@ -106,6 +163,7 @@ export default {
       "getAllBorrows",
       "borrowLoadingState",
       "getBorrowsCount",
+      "getAllBorrowstTrue",
     ]),
   },
   mounted() {
@@ -137,7 +195,6 @@ export default {
         Returnat: true,
       });
     },
-    toggleDetails() {},
   },
 };
 </script>

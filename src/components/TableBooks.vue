@@ -1,46 +1,56 @@
 <template>
   <div>
-    <h2>Total carti 📚{{ calculCarti }}</h2>
-    <!-- <b-table striped hover :items="items"></b-table> -->
-    <b-col lg="4" class="pb-2"
-      ><b-button @click="toggleCreateBook">Adauga Carte</b-button></b-col
-    >
-    <CreateBook v-if="showCreateBook"></CreateBook>
-    <b-table
-      class="text-center"
-      id="my-table"
-      striped
-      hover
-      :items="getAllBooks"
-      :fields="fields"
-      :per-page="perPage"
-      :current-page="currentPage"
-    >
-      <template #cell(Delete)="data">
-        <b-button
-          size="sm"
-          v-on:click="deleteBookClicked(data.item._id)"
-          class="mr-1"
-          variant="danger"
-        >
-          Delete
-        </b-button>
-      </template>
-    </b-table>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="getAllBooks.length"
-      :per-page="perPage"
-      first-text="First"
-      prev-text="Prev"
-      next-text="Next"
-      last-text="Last"
-    ></b-pagination>
-    <router-view></router-view>
+    <div class="text-center" v-if="bookLoadingState">
+      <b-spinner variant="primary"></b-spinner>
+    </div>
+    <div v-if="!bookLoadingState">
+      <h2>Total carti 📚{{ calculCarti }}</h2>
+      <!-- <b-table striped hover :items="items"></b-table> -->
+      <b-col lg="4" class="pb-2"
+        ><b-button @click="toggleCreateBook">Adauga Carte</b-button></b-col
+      >
+      <b-col lg="4" class="pb-2"
+        ><b-button @click="toggleUpdateBook">Modifica Carte</b-button></b-col
+      >
+      <CreateBook v-if="showCreateBook"></CreateBook>
+      <UpdateBook v-if="showUpdateBook"></UpdateBook>
+      <b-table
+        class="text-center"
+        id="my-table"
+        striped
+        hover
+        :items="getAllBooks"
+        :fields="fields"
+        :per-page="perPage"
+        :current-page="currentPage"
+      >
+        <template #cell(Delete)="data">
+          <b-button
+            size="sm"
+            v-on:click="deleteBookClicked(data.item._id)"
+            class="mr-1"
+            variant="danger"
+          >
+            Delete
+          </b-button>
+        </template>
+      </b-table>
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="getAllBooks.length"
+        :per-page="perPage"
+        first-text="First"
+        prev-text="Prev"
+        next-text="Next"
+        last-text="Last"
+      ></b-pagination>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
+import UpdateBook from "./UpdateBook.vue";
 import CreateBook from "./CreateBook.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
@@ -61,12 +71,14 @@ export default {
         },
       ],
       showCreateBook: false,
+      showUpdateBook: false,
       perPage: 15,
       currentPage: 1,
     };
   },
   components: {
     CreateBook,
+    UpdateBook,
   },
   computed: {
     ...mapGetters("books", ["getAllBooks", "bookLoadingState", "calculCarti"]),
@@ -79,6 +91,9 @@ export default {
     ...mapActions("books", ["fetchAllBooks", "deleteBook"]),
     toggleCreateBook() {
       this.showCreateBook = !this.showCreateBook;
+    },
+    toggleUpdateBook() {
+      this.showUpdateBook = !this.showUpdateBook;
     },
     deleteBookClicked(idBook) {
       this.deleteBook(idBook);

@@ -8,7 +8,7 @@
           class="nav-link"
           exact-active-class="active"
           :to="{ name: 'table-employees' }"
-          >Lista Cursanti</router-link
+          >Lista Angajati</router-link
         >
         <b-badge variant="badge bg-primary rounded-pill" pill>{{
           countCourses()

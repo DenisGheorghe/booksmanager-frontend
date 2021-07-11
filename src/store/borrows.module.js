@@ -20,6 +20,11 @@ const getters = {
     getBorrowsCount(state) {
         return state.borrowCount;
     },
+    getAllBorrowstTrue(state) {
+
+        let result = state.borrowList.filter(state => !state.Returnat);
+        return result;
+    },
     // getAllBooksLang(state) {
     //     return state.querryBooksByLanguage;
     // }
