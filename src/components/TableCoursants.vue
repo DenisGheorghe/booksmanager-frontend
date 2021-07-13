@@ -16,6 +16,13 @@
       :per-page="perPage"
       :current-page="currentPage"
     >
+      <template #cell(adresa)="data">
+        <p class="text-info">
+          {{ data.item.StradaSiNumar }}, {{ data.item.Oras }},
+          {{ data.item.Tara }}
+        </p>
+      </template>
+
       <template #cell(Delete)="data">
         <b-button
           size="sm"
@@ -54,7 +61,12 @@ export default {
 
         { key: "Cod_Curs.Denumire", label: "Curs" },
         "Email",
+
         "Voluntar",
+        {
+          key: "adresa",
+          label: "Adresa",
+        },
         {
           key: "Delete",
           label: "Delete",
@@ -105,5 +117,11 @@ export default {
   width: 50%;
   padding: 10px;
   max-width: 50% !important;
+}
+.text-info {
+  color: black !important;
+}
+td {
+  vertical-align: middle !important;
 }
 </style>

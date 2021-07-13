@@ -54,7 +54,7 @@ export default {
           label: "Delete",
         },
       ],
-      perPage: 15,
+      perPage: 10,
       currentPage: 1,
       showCreateAuthor: false,
     };

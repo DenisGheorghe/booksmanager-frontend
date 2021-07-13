@@ -6,12 +6,14 @@
     <div v-if="!bookLoadingState">
       <h2>Total carti 📚{{ calculCarti }}</h2>
       <!-- <b-table striped hover :items="items"></b-table> -->
-      <b-col lg="4" class="pb-2"
-        ><b-button @click="toggleCreateBook">Adauga Carte</b-button></b-col
-      >
-      <b-col lg="4" class="pb-2"
-        ><b-button @click="toggleUpdateBook">Modifica Carte</b-button></b-col
-      >
+      <div class="row">
+        <b-col class="pb-2"
+          ><b-button @click="toggleCreateBook">Adauga Carte</b-button></b-col
+        >
+        <b-col class="pb-2"
+          ><b-button @click="toggleUpdateBook">Modifica Carte</b-button></b-col
+        >
+      </div>
       <CreateBook v-if="showCreateBook"></CreateBook>
       <UpdateBook v-if="showUpdateBook"></UpdateBook>
       <b-table
@@ -63,8 +65,9 @@ export default {
         { key: "Autor.Nume_Autor", label: "Nume Autor" },
         { key: "Autor.Prenume_Autor", label: "Prenume Autor" },
         "Limba",
-        "Stoc",
+
         { key: "Cod_Editura.Nume_Editura", label: "Editura" },
+        "Stoc",
         {
           key: "Delete",
           label: "Delete",
@@ -72,7 +75,7 @@ export default {
       ],
       showCreateBook: false,
       showUpdateBook: false,
-      perPage: 15,
+      perPage: 10,
       currentPage: 1,
     };
   },
@@ -91,9 +94,11 @@ export default {
     ...mapActions("books", ["fetchAllBooks", "deleteBook"]),
     toggleCreateBook() {
       this.showCreateBook = !this.showCreateBook;
+      this.showUpdateBook = false;
     },
     toggleUpdateBook() {
       this.showUpdateBook = !this.showUpdateBook;
+      this.showCreateBook = false;
     },
     deleteBookClicked(idBook) {
       this.deleteBook(idBook);

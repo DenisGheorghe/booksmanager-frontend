@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Adauga o noua carte</h2>
+    <h2>Modifica o carte existenta</h2>
     <form v-on:submit.prevent="submitForm">
       <div class="row">
         <div class="form-group col-md-6">

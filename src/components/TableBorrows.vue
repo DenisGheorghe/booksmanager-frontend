@@ -10,6 +10,7 @@
     <CreateBorrow v-if="showCreateBorrow"></CreateBorrow>
     <div class="d-flex justify-content-end">
       <b-form-checkbox
+        class="boxMod"
         id="checkbox-1"
         v-model="status"
         name="checkbox-1"
@@ -17,9 +18,8 @@
         unchecked-value="Toate imprumuturile"
       >
       </b-form-checkbox>
-
       <div>
-        Sunt: <strong>{{ status }}</strong>
+        Sunt afisate: <strong>{{ status }}</strong>
       </div>
     </div>
 
@@ -34,8 +34,51 @@
       :per-page="perPage"
       :current-page="currentPage"
     >
+      <template #cell(test)="data">
+        <b
+          style="color: red"
+          v-if="
+            data.item.Returnat == false &&
+            data.item.Data_Retur < formatDateCompare(test)
+          "
+        >
+          Termen Depasit
+        </b>
+        <b
+          style="color: green"
+          v-else-if="
+            data.item.Returnat == true &&
+            data.item.Data_Retur >= formatDateCompare(test)
+          "
+        >
+          Returnat la Timp
+        </b>
+
+        <b
+          style="color: orange"
+          v-else-if="
+            data.item.Returnat == true &&
+            data.item.Data_Retur < formatDateCompare(test)
+          "
+        >
+          Returnat cu intarziere
+        </b>
+
+        <b v-else> In proces </b>
+      </template>
+
       <template #cell(Returnat1)="data">
         <b-button
+          v-if="data.item.Returnat"
+          size="sm"
+          v-on:click="setFalse(data.item._id)"
+          class="mr-1"
+          variant="secondary"
+        >
+          Returnat
+        </b-button>
+        <b-button
+          v-else
           size="sm"
           v-on:click="setTrue(data.item._id)"
           class="mr-1"
@@ -72,8 +115,51 @@
       :per-page="perPage"
       :current-page="currentPage"
     >
+      <template #cell(test)="data">
+        <b
+          style="color: red"
+          v-if="
+            data.item.Returnat == false &&
+            data.item.Data_Retur < formatDateCompare(test)
+          "
+        >
+          Termen Depasit
+        </b>
+        <b
+          style="color: green"
+          v-else-if="
+            data.item.Returnat == true &&
+            data.item.Data_Retur >= formatDateCompare(test)
+          "
+        >
+          Returnat la Timp
+        </b>
+
+        <b
+          style="color: orange"
+          v-else-if="
+            data.item.Returnat == true &&
+            data.item.Data_Retur < formatDateCompare(test)
+          "
+        >
+          Returnat cu intarziere
+        </b>
+
+        <b v-else> In proces </b>
+      </template>
+
       <template #cell(Returnat1)="data">
         <b-button
+          v-if="data.item.Returnat"
+          size="sm"
+          v-on:click="setFalse(data.item._id)"
+          class="mr-1"
+          variant="secondary"
+        >
+          Returnat
+        </b-button>
+        <b-button
+          v-else
           size="sm"
           v-on:click="setTrue(data.item._id)"
           class="mr-1"
@@ -119,14 +205,17 @@ import moment from "moment";
 const m = moment();
 export default {
   data() {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const minDate = new Date(today);
     return {
       retur: "true",
       status: "Toate imprumuturile",
       fields: [
         { key: "Cod_Cursant.Nume", label: "Nume Cursant" },
-        { key: "Returnat", label: "Returnat" },
+        //     { key: "Returnat", label: "Returnat" },
         { key: "Cod_Cursant.Prenume", label: "Prenume Cursant" },
-        { key: "Cod_Curs.Denumire", label: "Curs" },
+
         {
           key: "Data_Imprumut",
           label: "Data Imprumut",
@@ -142,9 +231,15 @@ export default {
           label: "Carti Imprumutate",
         },
         {
+          key: "test",
+          label: "Status",
+        },
+
+        {
           key: "Returnat1",
           label: "Actiuni",
         },
+
         {
           key: "Delete",
         },
@@ -153,6 +248,7 @@ export default {
       perPage: 15,
       currentPage: 1,
       list: [],
+      test: minDate,
     };
   },
   components: {
@@ -189,13 +285,26 @@ export default {
     formatDateAssigned2(value) {
       return moment(value).format("DD.MM.YYYY");
     },
+    formatDateCompare(value) {
+      return moment(value).format("YYYY-MM-DD");
+    },
     setTrue(id) {
       this.updateBorrow({
         id,
         Returnat: true,
       });
     },
+    setFalse(id) {
+      this.updateBorrow({
+        id,
+        Returnat: false,
+      });
+    },
   },
 };
 </script>
-
+<style  scoped>
+.boxMod {
+  margin-right: 5px !important;
+}
+</style>

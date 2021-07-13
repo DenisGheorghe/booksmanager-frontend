@@ -3,7 +3,7 @@
     <div class="row">
       <b-col lg="4" class="pb-2"
         ><b-button @click="toggleSearchDate"
-          >Raport dupa Data Imprumutului</b-button
+          >Raport dupa Data Returului</b-button
         >
         <form v-on:submit.prevent v-if="showSearchLanguage">
           <label for="example-datepicker">Intre</label>
@@ -92,12 +92,22 @@
       :current-page="currentPage"
     >
       <template #cell(Carti)="data">
-        <span v-for="carte in data.item.Carti">
+        <span v-for="carte in data.item.Carti" :key="carte._id">
           {{ carte.Cod_Carte.Denumire_Carte }} <br />
         </span>
       </template>
-      <template #cell(Returnare)="data">
+      <template #cell(Returnat1)="data">
         <b-button
+          v-if="data.item.Returnat"
+          size="sm"
+          v-on:click="setFalse(data.item._id)"
+          class="mr-1"
+          variant="secondary"
+        >
+          Returnat
+        </b-button>
+        <b-button
+          v-else
           size="sm"
           v-on:click="setTrue(data.item._id)"
           class="mr-1"
@@ -132,13 +142,9 @@ export default {
       Cod_Cursant: "",
       lista: [],
       fields: [
-        {
-          key: "Carti",
-          label: "Carti Imprumutate",
-        },
         { key: "Cod_Cursant.Nume", label: "Nume Cursant" },
         { key: "Cod_Cursant.Prenume", label: "Prenume Cursant" },
-        { key: "Cod_Curs.Denumire", label: "Curs" },
+        // { key: "Cod_Cursant.Cod_curs", label: "Curs" },
         {
           key: "Data_Imprumut",
           label: "Data Imprumut",
@@ -150,8 +156,12 @@ export default {
           formatter: "formatDateAssigned",
         },
         {
-          key: "Returnare",
-          label: "Returnat",
+          key: "Carti",
+          label: "Carti Imprumutate",
+        },
+        {
+          key: "Returnat1",
+          label: "Actiuni",
         },
       ],
       showSearchLanguage: false,
@@ -172,6 +182,7 @@ export default {
   methods: {
     ...mapActions("coursants", ["fetchAllCoursants"]),
     ...mapActions("courses", ["fetchAllCourses"]),
+    ...mapActions("borrows", ["updateBorrow"]),
     formatDateAssigned(value) {
       return moment(value).format("DD.MM.YYYY");
     },
@@ -222,7 +233,18 @@ export default {
     toggleSearchCoursant() {
       this.showSearchCoursant = !this.showSearchCoursant;
     },
-    setTrue() {},
+    setTrue(id) {
+      this.updateBorrow({
+        id,
+        Returnat: true,
+      });
+    },
+    setFalse(id) {
+      this.updateBorrow({
+        id,
+        Returnat: false,
+      });
+    },
   },
 };
 </script>

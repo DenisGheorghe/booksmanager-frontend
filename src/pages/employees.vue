@@ -26,3 +26,11 @@ export default {
   },
 };
 </script>
+<style scoped>
+.title-row {
+  min-height: 100px;
+}
+.titlu {
+  padding: 5%;
+}
+</style>
