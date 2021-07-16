@@ -1,54 +1,70 @@
 <template>
   <div>
-    <h2>Total cursanti 🎓{{ getCoursantsCount }}</h2>
-    <!-- <b-table striped hover :items="items"></b-table> -->
-    <b-col lg="4" class="pb-2"
-      ><b-button @click="toggleCreateCoursants">Adauga Cursant</b-button></b-col
-    >
-    <CreateCoursant v-if="showCreateCoursants"></CreateCoursant>
-    <b-table
-      class="text-center"
-      id="my-table"
-      striped
-      hover
-      :items="getAllCoursants"
-      :fields="fields"
-      :per-page="perPage"
-      :current-page="currentPage"
-    >
-      <template #cell(adresa)="data">
-        <p class="text-info">
-          {{ data.item.StradaSiNumar }}, {{ data.item.Oras }},
-          {{ data.item.Tara }}
-        </p>
-      </template>
-
-      <template #cell(Delete)="data">
-        <b-button
-          size="sm"
-          v-on:click="deleteCoursantClicked(data.item._id)"
-          class="mr-1"
-          variant="danger"
+    <div class="text-center" v-if="coursantsLoadingState">
+      <b-spinner variant="primary"></b-spinner>
+    </div>
+    <div v-if="!coursantsLoadingState">
+      <h2>Total cursanti 🎓{{ getCoursantsCount }}</h2>
+      <!-- <b-table striped hover :items="items"></b-table> -->
+      <div class="row">
+        <b-col lg="4" class="pb-2"
+          ><b-button @click="toggleCreateCoursants"
+            >Adauga Cursant</b-button
+          ></b-col
         >
-          Delete
-        </b-button>
-      </template>
-    </b-table>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="getAllCoursants.length"
-      :per-page="perPage"
-      first-text="First"
-      prev-text="Prev"
-      next-text="Next"
-      last-text="Last"
-    ></b-pagination>
-    <router-view></router-view>
+        <b-col class="pb-2"
+          ><b-button @click="toggleUpdateCoursants"
+            >Modifica Cursant</b-button
+          ></b-col
+        >
+      </div>
+      <CreateCoursant v-if="showCreateCoursants"></CreateCoursant>
+      <UpdateCoursant v-if="showUpdateCoursants"></UpdateCoursant>
+      <b-table
+        class="text-center"
+        id="my-table"
+        striped
+        hover
+        :items="getAllCoursants"
+        :fields="fields"
+        :per-page="perPage"
+        :current-page="currentPage"
+      >
+        <template #cell(adresa)="data">
+          <p class="text-info">
+            {{ data.item.StradaSiNumar }}, {{ data.item.Oras }},
+            {{ data.item.Tara }}
+          </p>
+        </template>
+
+        <template #cell(Delete)="data">
+          <b-button
+            size="sm"
+            v-on:click="deleteCoursantClicked(data.item._id)"
+            class="mr-1"
+            variant="danger"
+          >
+            Delete
+          </b-button>
+        </template>
+      </b-table>
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="getAllCoursants.length"
+        :per-page="perPage"
+        first-text="First"
+        prev-text="Prev"
+        next-text="Next"
+        last-text="Last"
+      ></b-pagination>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
 import CreateCoursant from "./CreateCoursant.vue";
+import UpdateCoursant from "./UpdateCoursant.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
@@ -73,12 +89,14 @@ export default {
         },
       ],
       showCreateCoursants: false,
-      perPage: 15,
+      showUpdateCoursants: false,
+      perPage: 10,
       currentPage: 1,
     };
   },
   components: {
     CreateCoursant,
+    UpdateCoursant,
   },
   computed: {
     ...mapGetters("coursants", [
@@ -102,6 +120,11 @@ export default {
     ]),
     toggleCreateCoursants() {
       this.showCreateCoursants = !this.showCreateCoursants;
+      this.showUpdateCoursants = false;
+    },
+    toggleUpdateCoursants() {
+      this.showUpdateCoursants = !this.showUpdateCoursants;
+      this.showCreateCoursants = false;
     },
     deleteCoursantClicked(idBook) {
       console.warn(idBook);

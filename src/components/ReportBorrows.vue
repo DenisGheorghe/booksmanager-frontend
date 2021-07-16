@@ -91,6 +91,39 @@
       :per-page="perPage"
       :current-page="currentPage"
     >
+      <template #cell(test)="data">
+        <b
+          style="color: red"
+          v-if="
+            data.item.Returnat == false &&
+            data.item.Data_Retur < formatDateCompare(test)
+          "
+        >
+          Termen Depasit
+        </b>
+        <b
+          style="color: green"
+          v-else-if="
+            data.item.Returnat == true &&
+            data.item.Data_Retur >= formatDateCompare(test)
+          "
+        >
+          Returnat la Timp
+        </b>
+
+        <b
+          style="color: orange"
+          v-else-if="
+            data.item.Returnat == true &&
+            data.item.Data_Retur < formatDateCompare(test)
+          "
+        >
+          Returnat cu intarziere
+        </b>
+
+        <b v-else> In proces </b>
+      </template>
+
       <template #cell(Carti)="data">
         <span v-for="carte in data.item.Carti" :key="carte._id">
           {{ carte.Cod_Carte.Denumire_Carte }} <br />
@@ -135,6 +168,9 @@ import { mapGetters, mapActions } from "vuex";
 import moment from "moment";
 export default {
   data() {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const minDate = new Date(today);
     return {
       dateStart: "",
       dateEnd: "",
@@ -160,6 +196,10 @@ export default {
           label: "Carti Imprumutate",
         },
         {
+          key: "test",
+          label: "Status",
+        },
+        {
           key: "Returnat1",
           label: "Actiuni",
         },
@@ -169,6 +209,7 @@ export default {
       showSearchCoursant: false,
       perPage: 15,
       currentPage: 1,
+      test: minDate,
     };
   },
   computed: {
@@ -232,6 +273,15 @@ export default {
     },
     toggleSearchCoursant() {
       this.showSearchCoursant = !this.showSearchCoursant;
+    },
+    formatDateAssigned(value) {
+      return moment(value).format("DD.MM.YYYY");
+    },
+    formatDateAssigned2(value) {
+      return moment(value).format("DD.MM.YYYY");
+    },
+    formatDateCompare(value) {
+      return moment(value).format("YYYY-MM-DD");
     },
     setTrue(id) {
       this.updateBorrow({

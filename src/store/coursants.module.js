@@ -78,6 +78,29 @@ const actions = {
                 Vue.set(state, 'isLoading', false);
             })
     },
+
+    updateCoursant({ commit }, coursantUpdate) {
+        //delete book from server
+        Vue.set(state, 'isLoading', true);
+
+        axios.put('http://localhost:4000/api/cursanti/update', {
+            data: {
+                ...coursantUpdate,
+            }
+        })
+            .then((resp) => {
+                console.warn("coursantUpdate")
+                commit('UPDATE_COURSANT', resp.data)
+            })
+            .catch(err => {
+                console.log('Error has occured', err);
+            })
+            .finally(() => {
+                Vue.set(state, 'isLoading', false);
+            })
+    }
+
+
 }
 
 const mutations = {
@@ -91,7 +114,7 @@ const mutations = {
     },
     DELETE_COURSANT(state, idBook) {
         const index = state.coursantsList.findIndex((book) => book._id == idBook)
-        console.warn(`DELETE_BOOK Sore index: ${index} idBook: ${idBook}`)
+        console.warn(`DELETE_COURSANT Sore index: ${index} idBook: ${idBook}`)
         if (index != -1) {
             state.coursantsList.splice(index, 1)
             Vue.set(state, 'coursantsList', state.coursantsList);
@@ -101,6 +124,19 @@ const mutations = {
             console.log(`Cartea cu id-ul ${idBook} nu a fost gasita`)
         }
     },
+
+
+    UPDATE_COURSANT(state, coursantUpdate) {
+        console.error(coursantUpdate)
+        const newState = state.coursantsList.map((coursant) => {
+            console.log(coursant._id === coursantUpdate._id)
+            return coursant._id === coursantUpdate._id
+                ? coursantUpdate
+                : coursant
+        }
+        );
+        Vue.set(state, 'coursantsList', newState);
+    }
 }
 
 export default {

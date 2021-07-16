@@ -1,7 +1,7 @@
 <template>
   <div v-if="!publisherLoadingState">
     <b-col lg="4" class="pb-2"
-      ><b-button @click="toggleCreatePublisher">Add Publisher</b-button></b-col
+      ><b-button @click="toggleCreatePublisher">Adauga Editura</b-button></b-col
     >
     <CreatePublisher v-if="showCreatePublisher"></CreatePublisher>
     <b-table

@@ -4,6 +4,24 @@
     <form v-on:submit.prevent>
       <div class="row">
         <div class="form-group col-md-6">
+          <label for="text">Alegeti Cursantul</label> <br />
+          <b-form-input
+            v-model="form.id"
+            list="my-list-id_Carte"
+            placeholder="Alegeti cursantul"
+          ></b-form-input>
+          <datalist id="my-list-id_Carte">
+            <option
+              v-for="cursant in getAllCoursants"
+              :value="cursant._id"
+              :key="cursant._id"
+            >
+              {{ cursant.Nume }} {{ cursant.Prenume }}
+            </option>
+          </datalist>
+        </div>
+
+        <div class="form-group col-md-6">
           <label for="text">Nume</label>
           <input
             type="text"
@@ -112,7 +130,7 @@
           <b-form-input
             v-model="form.Cod_Curs"
             list="my-list-ids"
-            placeholder="Alegeti cursul"
+            placeholder="Alegeti Cursul"
           ></b-form-input>
           <datalist id="my-list-ids">
             <option
@@ -170,16 +188,22 @@ export default {
 
   computed: {
     ...mapGetters("courses", ["getAllCourses", "courseLoadingState"]),
+    ...mapGetters("coursants", ["getAllCoursants", "courseLoadingState"]),
   },
   mounted() {
     this.fetchAllCourses();
-    console.log(this.getAllCourses);
   },
   methods: {
     ...mapActions("courses", ["fetchAllCourses"]),
-    ...mapActions("coursants", ["addCoursant"]),
+    ...mapActions("coursants", ["updateCoursant"]),
     restetInput() {
-      this.addCoursant(this.form);
+      let formUpdated = JSON.parse(JSON.stringify(this.form));
+      Object.keys(formUpdated).forEach((field) => {
+        if (formUpdated[field] == "") {
+          delete formUpdated[field];
+        }
+      });
+      this.updateCoursant(formUpdated);
       this.form._id = "";
       this.form.Nume = "";
       this.form.Autor = "";

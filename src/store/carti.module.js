@@ -100,7 +100,7 @@ const actions = {
                 Vue.set(state, 'isLoading', false);
             })
     },
-    updateBook({ commit }, bookUpdate) {
+    updateCoursant({ commit }, bookUpdate) {
         //delete book from server
         Vue.set(state, 'isLoading', true);
 
