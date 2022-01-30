@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <h2>Add a New Course</h2>
@@ -32,7 +31,7 @@
         </div>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary" v-on:click="restetInput">
+        <button class="btn btn-primary btn-send" v-on:click="restetInput">
           Trimite
         </button>
       </div>
@@ -48,9 +47,9 @@ export default {
       form: {
         Denumire: "",
         Limba: "",
-        Tip: "",
+        Tip: ""
       },
-      options: ["Online", "Fizic"],
+      options: ["Online", "Fizic"]
     };
   },
   methods: {
@@ -60,7 +59,7 @@ export default {
       this.form.Denumire = "";
       this.form.Limba = "";
       this.form.Tip = "";
-    },
-  },
+    }
+  }
 };
 </script>

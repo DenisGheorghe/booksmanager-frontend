@@ -1,11 +1,13 @@
 <template>
   <div>
-    <div class="mainApp">
+    <div>
       <NavBar></NavBar>
 
       <router-view></router-view>
     </div>
-    <FooterBar></FooterBar>
+    <div class="positioning">
+      <FooterBar></FooterBar>
+    </div>
   </div>
 </template>
 
@@ -23,11 +25,17 @@ export default {
   methods: {},
   data() {
     return {};
-  },
+  }
 };
 </script>
 <style>
 .mainApp {
   min-height: 761px !important;
+  position: relative;
+}
+.positioning {
+  position: absolute;
+  bottom: 0px;
+  min-width: 100%;
 }
 </style>

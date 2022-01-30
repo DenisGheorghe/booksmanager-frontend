@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <h2>Add a New Author</h2>
@@ -28,7 +27,9 @@
         </div>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary" v-on:click="restetInput">Submit</button>
+        <button class="btn btn-primary btn-send" v-on:click="restetInput">
+          Submit
+        </button>
       </div>
     </form>
   </div>
@@ -43,8 +44,8 @@ export default {
       form: {
         //  _id: "",
         Nume_Autor: "",
-        Prenume_Autor: "",
-      },
+        Prenume_Autor: ""
+      }
     };
   },
   methods: {
@@ -57,7 +58,7 @@ export default {
 
       this.form.Nume_Autor = "";
       this.form.Prenume_Autor = "";
-    },
-  },
+    }
+  }
 };
 </script>

@@ -135,7 +135,7 @@
       </div>
       <div class="form-group col-md-6">
         <br />
-        <button class="btn btn-primary" v-on:click="restetInput">
+        <button class="btn btn-primary btn-send" v-on:click="restetInput">
           Trimite
         </button>
       </div>
@@ -159,17 +159,17 @@ export default {
         Judet: "",
         Tara: "",
         Cod_Curs: "",
-        Voluntar: false,
+        Voluntar: false
       },
       options: [
         { value: "true", text: "Adevarat" },
-        { value: "false", text: "Fals" },
-      ],
+        { value: "false", text: "Fals" }
+      ]
     };
   },
 
   computed: {
-    ...mapGetters("courses", ["getAllCourses", "courseLoadingState"]),
+    ...mapGetters("courses", ["getAllCourses", "courseLoadingState"])
   },
   mounted() {
     this.fetchAllCourses();
@@ -193,7 +193,7 @@ export default {
       this.form.Tara = "";
       this.form.Cod_Curs = "";
       this.form.Voluntar = "";
-    },
-  },
+    }
+  }
 };
 </script>

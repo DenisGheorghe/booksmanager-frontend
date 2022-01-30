@@ -83,14 +83,14 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
       Autori: [],
       Carti: [],
       Edituri: [],
-      authorsCount: 0,
+      authorsCount: 0
     };
   },
   mounted() {
@@ -102,16 +102,19 @@ export default {
     ...mapGetters("books", ["getCartiCount"]),
     ...mapGetters("authors", ["getauthorCount"]),
     ...mapGetters("publishers", ["getPublisherCount"]),
-    ...mapGetters("borrows", ["getBorrowsCount"]),
+    ...mapGetters("borrows", ["getBorrowsCount"])
   },
+  methods: {
+    ...mapActions("authors", ["fetchAllAuthors"])
+  }
 };
 </script>
 <style scoped>
 .badgecustom {
-  position: absolute;
+  /* position: absolute;
   right: 1rem;
   width: 2rem;
 
-  top: 1.1rem;
+  top: 1.1rem; */
 }
 </style>

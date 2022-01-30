@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <h2>Adauga un nou Angajat</h2>
@@ -51,7 +50,9 @@
         </div>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary" v-on:click="restetInput">Submit</button>
+        <button class="btn btn-primary btn-send" v-on:click="restetInput">
+          Trimite
+        </button>
       </div>
     </form>
   </div>
@@ -68,8 +69,8 @@ export default {
         Nume: "",
         Prenume: "",
         Nr_Tel: "",
-        Email: "",
-      },
+        Email: ""
+      }
     };
   },
   methods: {
@@ -84,7 +85,7 @@ export default {
       this.form.Prenume = "";
       this.form.Nr_Tel = "";
       this.form.Email = "";
-    },
-  },
+    }
+  }
 };
 </script>

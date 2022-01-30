@@ -12,7 +12,7 @@ import store from './store'
 import './pluggins/bootstrap'
 
 
-// Bootstrap application
+
 new Vue({
   el: '#app',
   router,

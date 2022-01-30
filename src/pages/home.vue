@@ -7,7 +7,7 @@
 
     <!-- page-content -->
     <b-row>
-      <b-col cols="2">
+      <b-col cols="2" class="sidebar">
         <SidebarHome></SidebarHome>
       </b-col>
       <b-col cols="10">
@@ -16,19 +16,32 @@
     </b-row>
   </b-container>
 </template>
+
 <script>
 import SidebarHome from "../components/SidebarHome.vue";
 import TableBooks from "../components/TableBooks.vue";
 export default {
   components: { SidebarHome, TableBooks },
   data() {
-    return {};
+    return {
+      listaCePrimesc: undefined
+    };
   },
+  methods: {
+    abc() {
+      return this.a++;
+    }
+  }
 };
 </script>
 
-
 <style scoped>
+@media screen and (max-width: 600px) {
+  .sidebar {
+    display: none;
+  }
+}
+
 .title-row {
   min-height: 100px;
 }
@@ -77,7 +90,7 @@ li {
 } */
 </style>
 
-    <!-- <div v-if=showBooks>
+<!-- <div v-if=showBooks>
      
         <br>
         <ul>

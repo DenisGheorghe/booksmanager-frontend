@@ -108,7 +108,7 @@
       <br />
       <br />
       <div class="form-group col-md-6">
-        <button class="btn btn-primary" v-on:click="restetInput">
+        <button class="btn btn-primary btn-send" v-on:click="restetInput">
           Trimite
         </button>
       </div>
@@ -132,9 +132,9 @@ export default {
         Cod_Curs: "",
         Cod_Angajat: "",
         Data_Imprumut: "",
-        Data_Retur: "",
+        Data_Retur: ""
       },
-      min: minDate,
+      min: minDate
     };
   },
 
@@ -143,7 +143,7 @@ export default {
     ...mapGetters("coursants", ["getAllCoursants", "coursantsLoadingState"]),
     ...mapGetters("courses", ["getAllCourses", "courseLoadingState"]),
     ...mapGetters("employees", ["getAllEmployees", "employeeLoadingState"]),
-    ...mapGetters("books", ["getAllBooks", "bookLoadingState", "calculCarti"]),
+    ...mapGetters("books", ["getAllBooks", "bookLoadingState", "calculCarti"])
   },
   mounted() {
     this.fetchAllCoursants();
@@ -161,7 +161,7 @@ export default {
     ...mapActions("courses", ["fetchAllCourses"]),
     ...mapActions("employees", ["fetchAllEmployees"]),
     ...mapActions("books", ["fetchAllBooks", "deleteBook"]),
-    addFind: function () {
+    addFind: function() {
       this.form.Carti.push({ Cod_Carte: "" });
     },
 
@@ -174,7 +174,7 @@ export default {
       this.form.Cod_Cursant = "";
       this.form.Data_Imprumut = "";
       this.form.Data_Retur = "";
-    },
-  },
+    }
+  }
 };
 </script>

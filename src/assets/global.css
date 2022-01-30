@@ -1,3 +1,18 @@
 body {
-    background: #eee;
+  background: #eee;
+}
+.btn-send {
+  margin-top: 1vw;
+}
+h1 {
+  font-size: 5.9vw;
+}
+h2 {
+  font-size: 3vw;
+}
+p {
+  font-size: 1vw;
+}
+a.nav-link {
+  font-size: 1vw;
 }

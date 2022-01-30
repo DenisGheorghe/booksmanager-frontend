@@ -6,19 +6,18 @@
           <br />
           <h4>Made With 💖 and care by Denis using:</h4>
         </b-col>
-        <b-col class="align-items-center test">
+        <b-col class="align-items-center move">
           <br />
-          <img src="../assets/logo.png" width="30%" alt="" />
+          <img src="../assets/logo.png" alt="" />
         </b-col>
         <b-col>
           <br />
-          <img src="../assets/1280px-Node.js_logo.svg.png" width="50%" alt="" />
+          <img src="../assets/1280px-Node.js_logo.svg.png" alt="" />
         </b-col>
-        <b-col class="test2">
+        <b-col class="move2">
           <br />
           <img
             src="../assets/1280px-Docker_(container_engine)_logo.svg.png"
-            width="95%"
             alt=""
           />
         </b-col>
@@ -26,7 +25,6 @@
           <br />
           <img
             src="../assets/MongoDB_Logo_FullColorBlack_RGB-4td3yuxzjs.png.svg"
-            width="100%"
             alt=""
           />
         </b-col>
@@ -41,21 +39,21 @@ footer {
   color: white;
   left: 0;
   top: 100%;
-  min-height: 120px;
-  max-height: 131px;
+  min-height: 100px;
+  max-height: 111px;
   width: 100%;
   overflow: hidden;
 }
 img {
   margin: 3%;
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 65%;
+  max-height: 30%;
 }
-.test {
+.move {
   -ms-transform: translate(-50%);
   transform: translate(20%);
 }
-.test2 {
+.move2 {
   -ms-transform: translate(-50%);
   transform: translate(-20%);
 }

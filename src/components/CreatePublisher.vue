@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <h2>Adauga Editura</h2>
@@ -29,7 +28,9 @@
         </div>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary" v-on:click="restetInput">Submit</button>
+        <button class="btn btn-primary btn-send" v-on:click="restetInput">
+          Trimite
+        </button>
       </div>
     </form>
   </div>
@@ -43,8 +44,8 @@ export default {
     return {
       form: {
         Nume_Editura: "",
-        Nr_Tel_Editura: "",
-      },
+        Nr_Tel_Editura: ""
+      }
     };
   },
   methods: {
@@ -55,7 +56,7 @@ export default {
 
       this.form.Nume_Editura = "";
       this.form.Nr_Tel_Editura = "";
-    },
-  },
+    }
+  }
 };
 </script>

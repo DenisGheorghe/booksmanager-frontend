@@ -5,7 +5,7 @@ import Vue from 'vue';
 const state = {
     coursantsList: [
     ],
-    coursantsCount: 1,
+    coursantsCount: 0,
     isLoading: false,
 }
 
